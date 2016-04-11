@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Inicio</title>
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css"></link>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
+		<meta charset="UTF-8"></meta>
+	</head>
+<style>
+
+form{
+	width: calc(30%);
+	margin: auto;
+	height: calc(100%);
+	vertical-align: middle;
+	box-shadow: 0px 0px 5px black;
+	margin-top: calc(10%);
+}
+
+md-input-container{
+	margin: 3px 15px;
+}
+
+@media screen and (max-width: 1100px){
+	form{
+		width: calc(50%);
+	}
+}
+
+@media screen and (max-width: 570px){
+	form{
+		width: calc(75%);
+	}
+}
+
+md-content{
+	padding-top: 20px;
+}
+
+md-icon{
+	transition: all ease-in-out .4s;
+}
+
+.md-toolbar-tools{
+	max-height: 180px !important;
+	height: 90px !important;
+}
+
+#logo{
+	margin: auto;
+}
+</style>
+	<body ng-app="loginApp">
+		<div  layout="row" layout-align="center center" ng-cloak="">
+			<form name="loginForm" layout="column" class="md-whiteframe-z1">
+				<md-toolbar >
+			    	<div class="md-toolbar-tools">
+			      		<img id="logo" src="http://localiza.com.sv/theme/localiza/img/localiza.png" width="130px" />
+			    	</div>
+			    </md-toolbar>
+				<md-content class="md-no-momentum">
+					<md-input-container class="md-icon-float md-block">
+						<label>Usuario</label>
+						<md-icon class="user" md-font-set="material-icons">account_circle</md-icon>
+						<input ng-model="login.user" required="" md-no-asterisk="" type="text"></input>
+					</md-input-container>
+					<md-input-container class="md-icon-float md-block">
+						<label>Contrase&ntilde;a</label>
+						<md-icon class="password" md-font-set="material-icons">https</md-icon>
+						<input ng-model="login.password" required="" md-no-asterisk="" type="password"></input>
+					</md-input-container>
+					<md-input-container layout="column" layout-align="center">
+						<md-button class="md-raised md-primary">Iniciar sesi&oacute;n</md-button>
+						<md-button md-no-ink="" class="md-primary">Recuperar contrase&ntilde;a</md-button>
+					</md-input-container>
+				</md-content>
+			</form>
+		</div>
+	</body>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+  	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+  	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+ 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+ 	<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+ 	<!-- Your application bootstrap  -->
+	<script type="text/javascript">    
+	    /**
+	     * You must include the dependency on 'ngMaterial' 
+	     */
+	    angular.module('loginApp', ['ngMaterial'])
+	    .config(function($mdThemingProvider) {
+	      $mdThemingProvider.theme('default')
+	        .primaryPalette('teal')
+	        .accentPalette('orange');
+	    });
+	</script>
+</html>
