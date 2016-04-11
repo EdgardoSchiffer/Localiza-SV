@@ -1,58 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns="http://www.w3.org/1999/xhtml">
+	xmlns="http://www.w3.org/1999/xhtml" ng-app="loginApp">
 	<head>
 		<title>Inicio</title>
 		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css"></link>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
+		<link rel="stylesheet" th:href="@{/resources/css/style.css}"></link>
 		<meta charset="UTF-8"></meta>
 	</head>
-<style>
-
-form{
-	width: calc(30%);
-	margin: auto;
-	height: calc(100%);
-	vertical-align: middle;
-	box-shadow: 0px 0px 5px black;
-	margin-top: calc(10%);
-}
-
-md-input-container{
-	margin: 3px 15px;
-}
-
-@media screen and (max-width: 1100px){
-	form{
-		width: calc(50%);
-	}
-}
-
-@media screen and (max-width: 570px){
-	form{
-		width: calc(75%);
-	}
-}
-
-md-content{
-	padding-top: 20px;
-}
-
-md-icon{
-	transition: all ease-in-out .4s;
-}
-
-.md-toolbar-tools{
-	max-height: 180px !important;
-	height: 90px !important;
-}
-
-#logo{
-	margin: auto;
-}
-</style>
-	<body ng-app="loginApp">
+	<body>
 		<div  layout="row" layout-align="center center" ng-cloak="">
 			<form name="loginForm" layout="column" class="md-whiteframe-z1">
 				<md-toolbar >
@@ -84,16 +41,5 @@ md-icon{
   	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
  	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
  	<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
- 	<!-- Your application bootstrap  -->
-	<script type="text/javascript">    
-	    /**
-	     * You must include the dependency on 'ngMaterial' 
-	     */
-	    angular.module('loginApp', ['ngMaterial'])
-	    .config(function($mdThemingProvider) {
-	      $mdThemingProvider.theme('default')
-	        .primaryPalette('teal')
-	        .accentPalette('orange');
-	    });
-	</script>
+	<script type="text/javascript" th:src="@{/resources/js/angularjs/login.js}"></script>
 </html>
