@@ -11,8 +11,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name="localiza_user")
-public class User implements Serializable{
+@Table(name="localiza_tipo_trabajo")
+public class TipoTrabajo implements Serializable{
 
 	/**
 	 * 
@@ -21,15 +21,14 @@ public class User implements Serializable{
 	@Id
 	@GenericGenerator(name="autoIncrement" , strategy="increment")
 	@GeneratedValue(generator="autoIncrement")
-	@Column(name="id_user")
-	private Integer id;
-	@Column(length=100)
-	private String username;
-	@Column(length=255)
-	private String pass;
-	public User() {
+	@Column(name="id_tipo_trabajo")
+	private int id;
+	@Column(length=40)
+	private String tipo_trabajo;
+	@Column(length=300)
+	private String descripcion;
+	public TipoTrabajo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public int getId() {
 		return id;
@@ -37,17 +36,19 @@ public class User implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getUser() {
-		return username;
+	public String getTipo_trabajo() {
+		return tipo_trabajo;
 	}
-	public void setUser(String user) {
-		this.username = user;
+	public void setTipo_trabajo(String tipo_trabajo) {
+		this.tipo_trabajo = tipo_trabajo;
 	}
-	public String getPass() {
-		return pass;
+	public String getDescripcion() {
+		return descripcion;
 	}
-	public void setPass(String pass) {
-		this.pass = pass;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
+	
+	
 	
 }

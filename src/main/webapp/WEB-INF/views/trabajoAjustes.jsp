@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="localizaApp">
+<html ng-app="trabajoAjustesApp">
 <head>
 <title>Administraci&oacute;n de trabajos</title>
 <meta charset="UTF-8" />
@@ -8,7 +8,7 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources//css/app/style.css"></link>
 </head>
-<body layout="column" ng-controller="AppController as vm">
+<body layout="column" ng-controller="trabajoAjustesCtrl as vm">
 	<md-toolbar layout="row">
 		<div class="md-toolbar-tools">
 			<md-button ng-click="vm.toggleSidenav('left')" hide-gt-sm class="md-icon-button"> 
@@ -18,7 +18,7 @@
 		</div>
 	</md-toolbar>
 	<div layout="row" flex>
-		<md-sidenav ng-include="'app/menu'" layout="column" class="md-sidenav-left md-whiteframe-4dp" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+		<md-sidenav ng-include="'menu'" layout="column" class="md-sidenav-left md-whiteframe-4dp" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
 			
 		</md-sidenav>
 		<div layout="column" flex id="content">
@@ -40,5 +40,5 @@
 <script
 	src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/angularjs/index.js"></script>
+	src="${pageContext.request.contextPath}/resources/js/angularjs/trabajoajustes.js"></script>
 </html>

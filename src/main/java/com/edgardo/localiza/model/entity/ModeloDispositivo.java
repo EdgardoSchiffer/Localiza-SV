@@ -6,13 +6,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name="localiza_user")
-public class User implements Serializable{
+@Table(name="localiza_modelo_dispositivo")
+public class ModeloDispositivo implements Serializable{
 
 	/**
 	 * 
@@ -21,13 +23,14 @@ public class User implements Serializable{
 	@Id
 	@GenericGenerator(name="autoIncrement" , strategy="increment")
 	@GeneratedValue(generator="autoIncrement")
-	@Column(name="id_user")
-	private Integer id;
+	@Column(name="id_modelo")
+	private int id;
 	@Column(length=100)
-	private String username;
-	@Column(length=255)
-	private String pass;
-	public User() {
+	private String modelo;
+	@JoinColumn(name="fk_id_marca", referencedColumnName="id_marca")
+	@ManyToOne
+	private MarcaDispositivo marca;
+	public ModeloDispositivo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -37,17 +40,18 @@ public class User implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getUser() {
-		return username;
+	public String getModelo() {
+		return modelo;
 	}
-	public void setUser(String user) {
-		this.username = user;
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
 	}
-	public String getPass() {
-		return pass;
+	public MarcaDispositivo getMarca() {
+		return marca;
 	}
-	public void setPass(String pass) {
-		this.pass = pass;
+	public void setMarca(MarcaDispositivo marca) {
+		this.marca = marca;
 	}
+	
 	
 }

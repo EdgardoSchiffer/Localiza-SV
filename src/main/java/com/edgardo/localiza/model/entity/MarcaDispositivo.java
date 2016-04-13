@@ -11,8 +11,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name="localiza_user")
-public class User implements Serializable{
+@Table(name="localiza_marca")
+public class MarcaDispositivo implements Serializable{
 
 	/**
 	 * 
@@ -21,15 +21,12 @@ public class User implements Serializable{
 	@Id
 	@GenericGenerator(name="autoIncrement" , strategy="increment")
 	@GeneratedValue(generator="autoIncrement")
-	@Column(name="id_user")
-	private Integer id;
-	@Column(length=100)
-	private String username;
-	@Column(length=255)
-	private String pass;
-	public User() {
+	@Column(name="id_marca")
+	private int id;
+	@Column(length=50)
+	private String marca;
+	public MarcaDispositivo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public int getId() {
 		return id;
@@ -37,17 +34,13 @@ public class User implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getUser() {
-		return username;
+	public String getMarca() {
+		return marca;
 	}
-	public void setUser(String user) {
-		this.username = user;
+	public void setMarca(String marca) {
+		this.marca = marca;
 	}
-	public String getPass() {
-		return pass;
-	}
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
+	
+	
 	
 }

@@ -1,0 +1,68 @@
+form{
+	width: calc(30%);
+	margin: auto;
+	height: calc(100%);
+	vertical-align: middle;
+	box-shadow: 0px 0px 5px black;
+	margin-top: calc(6%);
+}
+
+md-input-container.md-icon-left {
+    padding-right: 11px;
+}
+
+#flash{
+	margin: auto;
+	margin-top: -22px !important;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#failCredentials{
+	cursor: pointer;
+    position: absolute;
+    right: 0;
+    padding-right: 30px;
+    color: #FB3535;
+    text-transform: CAPITALIZE;
+}
+
+.margincero{
+	margin-bottom: 0px !important;
+	padding-bottom: 0 !important;
+}
+
+md-input-container{
+	margin: 0px 15px;
+}
+
+@media screen and (max-width: 1100px){
+	form{
+		width: calc(50%);
+	}
+}
+
+@media screen and (max-width: 570px){
+	form{
+		width: calc(75%);
+	}
+}
+
+md-content{
+	padding-top: 20px;
+}
+
+md-icon{
+	transition: all ease-in-out .4s;
+}
+
+.md-toolbar-tools{
+	max-height: 180px !important;
+	height: 90px !important;
+}
+
+#logo{
+	margin: auto;
+}

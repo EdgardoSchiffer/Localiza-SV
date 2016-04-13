@@ -1,0 +1,161 @@
+.md-toolbar-tools h1 {
+	font-size: inherit;
+	font-weight: inherit;
+	margin: inherit;
+}
+
+md-sidenav{
+	width: 220px !important;
+	min-width: 220px !important;
+	max-width: 220px !important;
+}
+
+md-sidenav.md-locked-open {
+	width: 150px !important;
+	min-width: 150px !important;
+	max-width: 150px !important;
+}
+
+.logo{
+	background-color: #19252B; 
+	transition: all ease-in-out 1s !important;
+	list-style: none;
+}
+
+.logo:hover{
+	background-color: #203540 !important;
+}
+
+#logo-container{
+	height: auto;
+}
+#logo-container img{
+	margin-top: 15px;
+	margin-left: 0px;
+	margin-bottom: 10px;
+	max-width: 70%;
+}
+ 
+.menu-item {
+  background: #fff;
+  width: 200px;
+  padding-left: 15px; 
+}
+
+.menu-item i{
+	vertical-align: middle;
+	font-size: 20px;
+    margin-right: 6px;
+}
+
+.menu-item a {
+  color: white;
+  display: block;
+  text-decoration: none;
+  text-align: left !important;
+  font-weight: 700;
+  color: #363837 !important;
+  text-transform: uppercase;
+}
+
+
+/*ul Styles*/
+.menu-item ul {
+  background: #fff;
+  font-size: 13px;
+  line-height: 30px;
+  list-style-type: none;
+  overflow: hidden;
+  padding: 0px;
+}
+
+.menu-item ul a {
+  margin-left: 30px;
+  text-decoration: none;
+  color: #aaa;
+  display: block;
+}
+
+/*li Styles*/
+.menu-item li {
+  border-bottom: 1px solid #eee;
+}
+
+.menu-item li:hover {
+  background: #eee;
+}
+
+/*ul Styles*/
+.menu-item ul {
+
+  background: #fff;
+  font-size: 13px;
+  line-height: 0px;
+  list-style-type: none;
+  overflow: hidden;
+  padding: 0px;
+}
+ 
+.menu-item ul a {
+  margin-left: 30px;
+  text-decoration: none;
+  color: #aaa;
+  display: block;
+  width: 100%;
+}
+ 
+/*li Styles*/
+.menu-item li {
+  border-bottom: 1px solid #eee;
+}
+ 
+.menu-item li:hover {
+  background: #eee;
+}
+
+.menu-item ul {
+  background: #fff;
+  font-size: 13px;
+  line-height: 30px;
+  height: 0px; /*Collapses the menu*/
+  list-style-type: none;
+  overflow: hidden;
+  padding: 0px;
+}
+
+.menu-item ul {
+  background: #fff;
+  font-size: 13px;
+  line-height: 30px;
+  height: 0px;
+  list-style-type: none;
+  overflow: hidden;
+  padding: 0px;
+  
+  /*Animation*/
+  -webkit-transition: height 1s ease;
+     -moz-transition: height 1s ease;
+       -o-transition: height 1s ease;
+      -ms-transition: height 1s ease;
+          transition: height 1s ease;
+}
+
+.expandible li a{
+	text-transform: capitalize !important;
+}
+
+.menu-item a:focus + .expandible1 {
+  height: 31px;
+}
+
+.menu-item a:focus + .expandible2 {
+  height: 62px;
+}
+
+.menu-item a:focus + .expandible3 {
+  height: 93px;
+}
+
+.menu-item a:focus + .expandible4 {
+  height: 124px;
+}
