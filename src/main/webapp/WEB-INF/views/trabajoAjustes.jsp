@@ -7,6 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources//css/app/style.css"></link>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources//css/app/table.css"></link>
 </head>
 <body layout="column" ng-controller="trabajoAjustesCtrl as vm">
 	<md-toolbar layout="row">
@@ -21,9 +22,37 @@
 		<md-sidenav ng-include="'menu'" layout="column" class="md-sidenav-left md-whiteframe-4dp" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
 			
 		</md-sidenav>
-		<div layout="column" flex id="content">
+		<div layout="column" flex id="content" layout-align="center center">
 			<md-content layout="column" flex class="md-padding">
-				<p>Por actualizar</p>
+				<div class="table-responsive-vertical shadow-z-1">
+				  <table id="table" class="table table-hover table-mc-light-blue" at-table at-paginated at-list="list" at-config="config" rules="none">
+				      <thead id="tblTitle">
+				        <tr>
+				          <th>Categorias de trabajos técnicos</th>
+				          <th>
+				          	<form class="form-inline">
+						        <div class="form-group">
+						            <input type="text" ng-model="search" class="form-control" placeholder="Buscar">
+						        </div>
+						    </form>
+				          </th>
+				        </tr>
+				      </thead>
+				      <thead>
+				      	<tr>
+				      		<th>Tipo de trabajo</th>
+				      		<th>Descripci&oacute;n</th>
+				      	</tr>
+				      </thead>
+				      <tbody>
+				        <tr ng-repeat="work in list|filter:search">
+				          <td data-title="Tipo de trabajo">{{work.trabajo}}</td>
+				          <td data-title="Descripci&oacute;n">{{work.descripcion}}</td>
+				        </tr>
+				      </tbody>
+				    </table>
+				    <at-pagination at-list="list" at-config="config"></at-pagination>
+				  </div>
 			</md-content>
 		</div>
 	</div>

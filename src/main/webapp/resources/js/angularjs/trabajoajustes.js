@@ -4,12 +4,16 @@ var app = angular.module("trabajoAjustesApp", ['ngMaterial'])
 		.primaryPalette('teal')
 		.accentPalette('indigo');
 });
-
-app.controller('trabajoAjustesCtrl', function($mdSidenav) {
+var json;
+app.controller('trabajoAjustesCtrl',  function($mdSidenav, $scope) {
 	  var vm = this;
 
 	  vm.toggleSidenav = function(menuId) {
 	    $mdSidenav(menuId).toggle();
 	  };
-
+	  json = '[{"id":1,"trabajo":"Instalacion","descripcion":""},'+
+	  			'{"id":2,"trabajo":"Revision","descripcion":""},'+
+	  			'{"id":3,"trabajo":"Desmontaje","descripcion":""}]'
+	  json = JSON.parse(json)
+	  $scope.list = json;
 	});

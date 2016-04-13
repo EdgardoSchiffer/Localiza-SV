@@ -27,7 +27,7 @@ login.controller("loginCtrl", function($scope, $http, $httpParamSerializer, $win
 				data = "Usuario o contrase&ntilde;a incorrectos."
 				document.getElementById("flash").innerHTML = data + "<a id='failCredentials' onClick='JavaScript:clean()'>x</a>";
 			} else{
-				$window.location.href = "app";
+				$window.location.href = "app/index";
 			}
 		})
 	};

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="localizaApp">
+<html ng-app="trabajoAjustesApp">
 <head>
 <title>Administraci&oacute;n de trabajos</title>
 <meta charset="UTF-8" />
@@ -9,13 +9,13 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources//css/app/style.css"></link>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources//css/app/table.css"></link>
 </head>
-<body layout="column" ng-controller="AppController as vm">
+<body layout="column" ng-controller="trabajoAjustesCtrl as vm">
 	<md-toolbar layout="row">
 		<div class="md-toolbar-tools">
 			<md-button ng-click="vm.toggleSidenav('left')" hide-gt-sm class="md-icon-button"> 
 				<md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon> 
 			</md-button>
-			<h1>Mi cuenta</h1>
+			<h1>Administración de trabajos - Localiza</h1>
 		</div>
 	</md-toolbar>
 	<div layout="row" flex>
@@ -25,29 +25,33 @@
 		<div layout="column" flex id="content" layout-align="center center">
 			<md-content layout="column" flex class="md-padding">
 				<div class="table-responsive-vertical shadow-z-1">
-				  <table id="table" class="table table-hover table-mc-light-blue" rules="none">
+				  <table id="table" class="table table-hover table-mc-light-blue" at-table at-paginated at-list="list" at-config="config" rules="none">
 				      <thead id="tblTitle">
 				        <tr>
-				          <th colspan="4">Mi informaci&oacute;n</th>
+				          <th>Monitoreo</th>
+				          <th>
+				          	<form class="form-inline">
+						        <div class="form-group">
+						            <input type="text" ng-model="search" class="form-control" placeholder="Buscar">
+						        </div>
+						    </form>
+				          </th>
 				        </tr>
 				      </thead>
 				      <thead>
 				      	<tr>
 				      		<th>Nombre</th>
 				      		<th>Apellido</th>
-				      		<th>Usuario</th>
-				      		<th>Contraseña</th>
 				      	</tr>
 				      </thead>
 				      <tbody>
-				        <tr>
-				          <td data-title="Nombre">Edgardo</td>
-				          <td data-title="Apellido">Argueta</td>
-				          <td data-title="Usuario">operador8</td>
-				          <td data-title="Contraseña">*******</td>
+				        <tr ng-repeat="work in list|filter:search">
+				          <td data-title="Nombre">{{work.trabajo}}</td>
+				          <td data-title="Apellido">{{work.descripcion}}</td>
 				        </tr>
 				      </tbody>
 				    </table>
+				    <at-pagination at-list="list" at-config="config"></at-pagination>
 				  </div>
 			</md-content>
 		</div>
@@ -65,5 +69,5 @@
 <script
 	src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/angularjs/index.js"></script>
+	src="${pageContext.request.contextPath}/resources/js/angularjs/trabajoajustes.js"></script>
 </html>
