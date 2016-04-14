@@ -199,6 +199,7 @@ app.controller('trabajoAjustesCtrl',  function($mdSidenav, $scope, $mdDialog, $m
 });
 
 function DialogController($scope, $mdDialog, locals) {
+	var originalData = angular.copy(locals.items);
 	$scope.title = locals.title;
 	$scope.newTipo = locals.items;
 	  $scope.hide = function() {
@@ -212,11 +213,11 @@ function DialogController($scope, $mdDialog, locals) {
 			  if ($scope.newTipo.tipo_trabajo != "" && $scope.newTipo.tipo_trabajo != undefined) {
 			    	$mdDialog.hide(answer);
 				}else{
+					angular.copy(originalData, $scope.newTipo);
 					alert("Llene el tipo")
-					$scope.newTipo = values;
 				}
 		  }else{
-			  document.getElementById("trabajoAjustesForm").submit();
+			  angular.copy(originalData, $scope.newTipo);
 			  $mdDialog.hide(answer);
 		  }
 	  };

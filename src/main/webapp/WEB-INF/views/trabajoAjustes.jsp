@@ -51,7 +51,7 @@
 				      	</tr>
 				      </thead>
 				      <tbody>
-				        <tr ng-repeat="work in list|filter:search">
+				        <tr ng-repeat="work in list|filter:search| orderBy:'-id'">
 				          <td class="hidden">{{work.id}}</td>
 				          <td data-title="Tipo de trabajo">{{work.tipo_trabajo}}</td>
 				          <td data-title="Descripci&oacute;n">{{work.descripcion}}</td>
