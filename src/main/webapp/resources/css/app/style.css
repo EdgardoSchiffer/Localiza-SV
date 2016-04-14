@@ -16,6 +16,10 @@ md-sidenav.md-locked-open {
 	max-width: 150px !important;
 }
 
+.hidden{
+	display: none !important;
+}
+
 .logo{
 	background-color: #19252B; 
 	transition: all ease-in-out 1s !important;
@@ -158,4 +162,38 @@ md-sidenav.md-locked-open {
 
 .menu-item a:focus + .expandible4 {
   height: 124px;
+}
+
+#insertBtn{
+	width: calc(80%);
+	margin: auto;
+}
+
+md-dialog{
+	min-width: 50%; 	
+}
+
+.searchInput{
+	border: 0;
+	border-radius: 10px;
+	padding: 5px 0px 5px 10px;
+	width: 160px;
+}
+
+.right-align{
+	text-align: right !important;
+}
+
+.crudModificar{
+	color: #14927C;
+	margin: 1px !important;
+	font-size: 23px;
+	font-weight: 500;
+}
+
+.crudEliminar{
+	color: #D0434E;
+	margin: 1px !important;
+	font-size: 28px;
+	font-weight: bold;
 }

@@ -32,9 +32,14 @@
 				          <th>
 				          	<form class="form-inline">
 						        <div class="form-group">
-						            <input type="text" ng-model="search" class="form-control" placeholder="Buscar">
+						            <input class="searchInput" type="text" ng-model="search" class="form-control" placeholder="Buscar">
 						        </div>
 						    </form>
+				          </th>
+				          <th>
+				          	<md-button id="insertBtn" class="md-primary md-raised" ng-click="newFunction($event)">
+						      Nuevo...
+						    </md-button>
 				          </th>
 				        </tr>
 				      </thead>
@@ -42,12 +47,22 @@
 				      	<tr>
 				      		<th>Tipo de trabajo</th>
 				      		<th>Descripci&oacute;n</th>
+				      		<th></th>
 				      	</tr>
 				      </thead>
 				      <tbody>
 				        <tr ng-repeat="work in list|filter:search">
-				          <td data-title="Tipo de trabajo">{{work.trabajo}}</td>
+				          <td class="hidden">{{work.id}}</td>
+				          <td data-title="Tipo de trabajo">{{work.tipo_trabajo}}</td>
 				          <td data-title="Descripci&oacute;n">{{work.descripcion}}</td>
+				          <td class="right-align">
+				          	<a ng-click="deleteFunction($event, work)" href="">
+				          		<i class="material-icons crudEliminar">delete_forever</i>
+				          	</a>
+				          	<a ng-click="updateFunction($event, work)" href="">
+				          		<i class="material-icons crudModificar" >border_color</i>
+				          	</a>
+				          </td>
 				        </tr>
 				      </tbody>
 				    </table>

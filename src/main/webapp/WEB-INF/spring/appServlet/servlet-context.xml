@@ -32,7 +32,7 @@
         <beans:property name="driverClassName" value="org.postgresql.Driver"/>
         <beans:property name="url" value="jdbc:postgresql://localhost/localiza_app"/>
         <beans:property name="username" value="postgres"/>
-        <beans:property name="password" value="123"/>
+        <beans:property name="password" value="Loc2016"/>
     </beans:bean>
  
     <beans:bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">

@@ -1,12 +1,23 @@
 package com.edgardo.localiza.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.edgardo.localiza.model.entity.TipoTrabajo;
+import com.edgardo.localiza.serviceImpl.TipoTrabajoServiceImpl;
 
 @Controller
 @RequestMapping("/app")
 public class MainController {
+	@Autowired
+	private TipoTrabajoServiceImpl tipoTrabajo;
 	@RequestMapping(value="index", method=RequestMethod.GET)
 	public String appIndex(){
 		return "/index";
@@ -14,7 +25,42 @@ public class MainController {
 	
 	@RequestMapping("menu")
 	public String menu(){
-		return "/menu";
+		return "/tmpl.menu";
+	}
+	
+	@RequestMapping("trabajoDialog")
+	public String tdialog(){
+		return "/tmpl.trabajoDialog";
+	}
+	
+	@RequestMapping(value="getTipoTrabajo", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<TipoTrabajo> getTipoTrabajo(){
+		return tipoTrabajo.findAll();
+	}
+	
+	@RequestMapping(value="newTipoTrabajo", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody TipoTrabajo newTipoTrabajo(@RequestParam(value="tipo_trabajo")String tipo,
+													@RequestParam(value="descripcion")String desc){
+		TipoTrabajo tipoEntity = new TipoTrabajo();
+		tipoEntity.setTipo_trabajo(tipo);
+		tipoEntity.setDescripcion(desc);
+		return tipoTrabajo.save(tipoEntity);
+	}
+	
+	@RequestMapping(value="deleteTipoTrabajo", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody boolean deleteTipoTrabajo(@RequestParam("id")int id){
+		return tipoTrabajo.delete(id);
+	}
+	
+	@RequestMapping(value="updateTipoTrabajo", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody TipoTrabajo updateTipoTrabajo(
+			@RequestParam(value="tipo_trabajo")String tipo,
+			@RequestParam(value="descripcion")String desc,
+			@RequestParam(value="id")int id){
+		TipoTrabajo entity = new TipoTrabajo();
+		entity.setTipo_trabajo(tipo);
+		entity.setDescripcion(desc);
+		return tipoTrabajo.update(entity, id);
 	}
 	
 	@RequestMapping("trabajoAjustes")

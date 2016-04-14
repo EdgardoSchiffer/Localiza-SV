@@ -61,5 +61,11 @@ public class UserServiceImpl implements UserService{
 			return false;
 		}
 	}
+
+	@Override
+	public User update(User entity, Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

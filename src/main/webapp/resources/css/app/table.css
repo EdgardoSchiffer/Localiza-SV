@@ -16,13 +16,13 @@ md-content{
 
 #tblTitle{
 	background-color: #3F51B5;
+	height: 150px !important;
 }
 
 #tblTitle tr th{
 	color: #FFF !important;
 	text-align: center;
 	text-transform: uppercase;
-	width: 50%;
 }
 
 .table > thead > tr,
