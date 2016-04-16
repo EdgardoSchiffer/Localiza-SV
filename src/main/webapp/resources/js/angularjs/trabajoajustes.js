@@ -4,22 +4,28 @@ var app = angular.module("trabajoAjustesApp", ['ngMaterial'])
 			.primaryPalette('teal')
 			.accentPalette('indigo');
 	})
-	app.factory('getList', function($http){
-		return {
-			list: function(){
-				return $http({
-					type: "application/json",
-					method: 'POST',
-					url: 'getTipoTrabajo',
-					//data: $httpParamSerializer($scope.login),
-					//dataType: "JSON",
-					headers: {
-					    'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
-					  }
-				})
-			}
+	
+/**
+ * 
+ * FUNCTION TO RETRIEVE DATABASE DATA
+ * 
+ */
+app.factory('getList', function($http){
+	return {
+		list: function(){
+			return $http({
+				type: "application/json",
+				method: 'POST',
+				url: 'getTipoTrabajo',
+				//data: $httpParamSerializer($scope.login),
+				//dataType: "JSON",
+				headers: {
+				    'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
+				  }
+			})
 		}
-	});
+	}
+});
 var json;
 app.controller('trabajoAjustesCtrl',  function($mdSidenav, $scope, $mdDialog, $mdMedia, $http, $httpParamSerializer, getList, $mdToast) {
 	  var vm = this;
@@ -27,40 +33,58 @@ app.controller('trabajoAjustesCtrl',  function($mdSidenav, $scope, $mdDialog, $m
 	  vm.toggleSidenav = function(menuId) {
 	    $mdSidenav(menuId).toggle();
 	  };
+	  
+	  
+	  /**
+	   * 
+	   * TOAST OPTIONS
+	   * 
+	   */
 	  var last = {
-		      bottom: false,
+			  bottom: false,
 		      top: true,
 		      left: false,
 		      right: true
-		    };
-		  $scope.toastPosition = angular.extend({},last);
-		  $scope.getToastPosition = function() {
-		    sanitizePosition();
-		    return Object.keys($scope.toastPosition)
-		      .filter(function(pos) { return $scope.toastPosition[pos]; })
-		      .join(' ');
-		  };
-		  function sanitizePosition() {
-		    var current = $scope.toastPosition;
-		    if ( current.bottom && last.top ) current.top = false;
-		    if ( current.top && last.bottom ) current.bottom = false;
-		    if ( current.right && last.left ) current.left = false;
-		    if ( current.left && last.right ) current.right = false;
-		    last = angular.extend({},current);
-		  }
-		  var pinTo = $scope.getToastPosition();
-		  $scope.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
-		  $scope.$watch(function() {
-		      return $mdMedia('xs') || $mdMedia('sm');
-		    }, function(wantsFullScreen) {
-		      $scope.customFullscreen = (wantsFullScreen === true);
-		    });
-		  
-		  
+	  };
+	  $scope.toastPosition = angular.extend({},last);
+	  $scope.getToastPosition = function() {
+		  sanitizePosition();
+		  return Object.keys($scope.toastPosition)
+		  .filter(function(pos) { return $scope.toastPosition[pos]; })
+		  .join(' ');
+	  };
+	  function sanitizePosition() {
+		  var current = $scope.toastPosition;
+		  if ( current.bottom && last.top ) current.top = false;
+		  if ( current.top && last.bottom ) current.bottom = false;
+		  if ( current.right && last.left ) current.left = false;
+		  if ( current.left && last.right ) current.right = false;
+		  last = angular.extend({},current);
+	  }
+	  var pinTo = $scope.getToastPosition();
+	  $scope.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
+	  $scope.$watch(function() {
+		  return $mdMedia('xs') || $mdMedia('sm');
+	  }, function(wantsFullScreen) {
+		  $scope.customFullscreen = (wantsFullScreen === true);
+	  });
+	  
+	  /**
+	   * 
+	   * GETTING INFO FROM BD
+	   * 
+	   */	  
 	  
 	  getList.list().then(function(response){
 		  $scope.list = response.data
 	  })
+	  
+	  /**
+	   * 
+	   * DELETE FUNCTION
+	   * 
+	   */
+	  
 	  $scope.deleteFunction = function(ev, work){
 		  var confirm = $mdDialog.confirm()
 	          .title('Eliminar categoria')
@@ -69,8 +93,8 @@ app.controller('trabajoAjustesCtrl',  function($mdSidenav, $scope, $mdDialog, $m
 	          .targetEvent(ev)
 	          .ok('Eliminar')
 	          .cancel('Cancelar');
-	    $mdDialog.show(confirm).then(function() {
-	    	console.log(JSON.parse('{"id":"'+work.id+'"}'));
+	  $mdDialog.show(confirm).then(function() {
+		  console.log(JSON.parse('{"id":"'+work.id+'"}'));
 	      $http({
 	    	  method: "POST",
 	    	  url: "deleteTipoTrabajo",
@@ -103,6 +127,12 @@ app.controller('trabajoAjustesCtrl',  function($mdSidenav, $scope, $mdDialog, $m
 	    });
 	  }
 	  
+	  /**
+	   * 
+	   * UPDATE FUNCTION
+	   * 
+	   */
+	  
 	  $scope.updateFunction = function(ev, work){
 		  delete work.$$hashKey;
 		  var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
@@ -124,6 +154,7 @@ app.controller('trabajoAjustesCtrl',  function($mdSidenav, $scope, $mdDialog, $m
 		    	if ($scope.newTipo.descripcion === undefined) {
 		    		$scope.newTipo.descripcion = " ";
 				}
+		    	console.log($httpParamSerializer($scope.newTipo))
 		      if (answer == "save") {
 		    	  $http({
 		  			type: "application/json",
@@ -150,6 +181,12 @@ app.controller('trabajoAjustesCtrl',  function($mdSidenav, $scope, $mdDialog, $m
 		      }
 		    });
 	  }
+	  
+	  /**
+	   * 
+	   * INSERT FUNCTION
+	   * 
+	   */
 	  
 	  $scope.newFunction = function(ev) {
 		    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
@@ -197,6 +234,12 @@ app.controller('trabajoAjustesCtrl',  function($mdSidenav, $scope, $mdDialog, $m
 		    });
 		  };
 });
+
+/**
+ * 
+ * DIALOG CONFIG
+ * 
+ */
 
 function DialogController($scope, $mdDialog, locals) {
 	var originalData = angular.copy(locals.items);

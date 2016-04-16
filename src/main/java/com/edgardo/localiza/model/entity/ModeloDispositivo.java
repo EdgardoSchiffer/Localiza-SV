@@ -8,12 +8,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="localiza_modelo_dispositivo")
+@NamedQueries({
+	@NamedQuery(name="ModeloDispositivo.findAll", query="SELECT m.id, m.modelo, md.marca FROM ModeloDispositivo m JOIN m.marca md")
+})
 public class ModeloDispositivo implements Serializable{
 
 	/**
@@ -27,8 +32,8 @@ public class ModeloDispositivo implements Serializable{
 	private int id;
 	@Column(length=100)
 	private String modelo;
-	@JoinColumn(name="fk_id_marca", referencedColumnName="id_marca")
 	@ManyToOne
+	@JoinColumn(name="fk_id_marca", referencedColumnName="id_marca")
 	private MarcaDispositivo marca;
 	public ModeloDispositivo() {
 		super();
@@ -52,6 +57,8 @@ public class ModeloDispositivo implements Serializable{
 	public void setMarca(MarcaDispositivo marca) {
 		this.marca = marca;
 	}
+	
+	
 	
 	
 }

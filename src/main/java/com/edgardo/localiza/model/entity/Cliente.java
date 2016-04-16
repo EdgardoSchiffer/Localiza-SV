@@ -8,12 +8,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="localiza_cliente")
+@NamedQueries({
+	@NamedQuery(name = "Cliente.findAll", query = "SELECT c.id, c.cliente, t.tipoCliente FROM Cliente c JOIN c.tipoCliente t")
+})
 public class Cliente implements Serializable{
 
 	/**

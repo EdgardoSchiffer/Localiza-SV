@@ -22,10 +22,16 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="loginRequestValidate", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody boolean loginRequestValidate(Model model,
+	public @ResponseBody Integer loginRequestValidate(Model model,
 													@RequestParam(value="user") String user,
 													@RequestParam(value="password") String pass
 			){
 		return userService.validateLogin(user, pass);
+	}
+	
+	@RequestMapping(value="getRole", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String getRole(@RequestParam(value="id")int id){
+		String role = userService.getRole(id);
+		return "{\"rol\": \""+role+"\"}";
 	}
 }

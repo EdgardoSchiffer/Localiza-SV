@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="trabajoAjustesApp">
+<html ng-app="marcaApp">
 <head>
 <title>Administraci&oacute;n de trabajos</title>
 <meta charset="UTF-8" />
@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources//css/app/style.css"></link>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources//css/app/table.css"></link>
 </head>
-<body layout="column" ng-controller="trabajoAjustesCtrl as vm">
+<body layout="column" ng-controller="marcaCtrl as vm">
 	<md-toolbar layout="row">
 		<div class="md-toolbar-tools">
 			<md-button ng-click="vm.toggleSidenav('left')" hide-gt-sm class="md-icon-button"> 
@@ -28,24 +28,39 @@
 				  <table id="table" class="table table-hover table-mc-light-blue" at-table at-paginated at-list="list" at-config="config" rules="none">
 				      <thead id="tblTitle">
 				        <tr>
-				          <th>Marca dispositivos</th>
+				          <th>Marcas</th>
 				          <th>
 				          	<form class="form-inline">
 						        <div class="form-group">
-						            <input type="text" ng-model="search" class="form-control" placeholder="Buscar">
+						            <input class="searchInput" type="text" ng-model="search" class="form-control" placeholder="Buscar">
 						        </div>
 						    </form>
+				          </th>
+				          <th>
+				          	<md-button id="insertBtn" class="md-primary md-raised" ng-click="newFunction($event)">
+						      Nuevo...
+						    </md-button>
 				          </th>
 				        </tr>
 				      </thead>
 				      <thead>
 				      	<tr>
-				      		<th>Marca</th>
+				      		<th colspan="2">Marca</th>
+				      		<th></th>
 				      	</tr>
 				      </thead>
 				      <tbody>
-				        <tr ng-repeat="work in list|filter:search">
-				          <td data-title="Marca" colspan="2">{{work.trabajo}}</td>
+				        <tr ng-repeat="marca in list|filter:search| orderBy:'-nombre'">
+				          <td hidden>{{marca.id}}</td>
+				          <td colspan="2" data-title="Marca">{{marca.marca}}</td>
+				          <td class="right-align">
+				          	<a ng-click="deleteFunction($event, marca)" href="">
+				          		<i class="material-icons crudEliminar">delete_forever</i>
+				          	</a>
+				          	<a ng-click="updateFunction($event, marca)" href="">
+				          		<i class="material-icons crudModificar" >border_color</i>
+				          	</a>
+				          </td>
 				        </tr>
 				      </tbody>
 				    </table>
@@ -67,5 +82,5 @@
 <script
 	src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/angularjs/trabajoajustes.js"></script>
+	src="${pageContext.request.contextPath}/resources/js/angularjs/marca.js"></script>
 </html>

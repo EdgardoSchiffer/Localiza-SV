@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="trabajoAjustesApp">
+<html ng-app="monitoreoApp">
 <head>
 <title>Administraci&oacute;n de trabajos</title>
 <meta charset="UTF-8" />
@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources//css/app/style.css"></link>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources//css/app/table.css"></link>
 </head>
-<body layout="column" ng-controller="trabajoAjustesCtrl as vm">
+<body layout="column" ng-controller="monitoreoCtrl as vm">
 	<md-toolbar layout="row">
 		<div class="md-toolbar-tools">
 			<md-button ng-click="vm.toggleSidenav('left')" hide-gt-sm class="md-icon-button"> 
@@ -28,26 +28,31 @@
 				  <table id="table" class="table table-hover table-mc-light-blue" at-table at-paginated at-list="list" at-config="config" rules="none">
 				      <thead id="tblTitle">
 				        <tr>
-				          <th>Monitoreo</th>
+				          <th colspan="2">Monitoreo</th>
 				          <th>
 				          	<form class="form-inline">
 						        <div class="form-group">
-						            <input type="text" ng-model="search" class="form-control" placeholder="Buscar">
+						            <input class="searchInput" type="text" ng-model="search" class="form-control" placeholder="Buscar">
 						        </div>
 						    </form>
+				          </th>
+				          <th>
+				          	<md-button id="insertBtn" class="md-primary md-raised" ng-click="newFunction($event)">
+						      Nuevo...
+						    </md-button>
 				          </th>
 				        </tr>
 				      </thead>
 				      <thead>
 				      	<tr>
-				      		<th>Nombre</th>
-				      		<th>Apellido</th>
+				      		<th colspan="2">Nombre</th>
+				      		<th colspan="2">Apellido</th>
 				      	</tr>
 				      </thead>
 				      <tbody>
-				        <tr ng-repeat="work in list|filter:search">
-				          <td data-title="Nombre">{{work.trabajo}}</td>
-				          <td data-title="Apellido">{{work.descripcion}}</td>
+				        <tr ng-repeat="monitoreo in list|filter:search| orderBy:'-nombre'">
+				          <td colspan="2" data-title="Nombre">{{monitoreo.nombre}}</td>
+				          <td colspan="2" data-title="Apellido">{{monitoreo.apellido}}</td>
 				        </tr>
 				      </tbody>
 				    </table>
@@ -69,5 +74,5 @@
 <script
 	src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/angularjs/trabajoajustes.js"></script>
+	src="${pageContext.request.contextPath}/resources/js/angularjs/monitoreo.js"></script>
 </html>

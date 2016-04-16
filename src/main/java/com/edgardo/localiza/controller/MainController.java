@@ -10,27 +10,34 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.edgardo.localiza.model.entity.Monitoreo;
 import com.edgardo.localiza.model.entity.TipoTrabajo;
 import com.edgardo.localiza.serviceImpl.TipoTrabajoServiceImpl;
+import com.edgardo.localiza.serviceImpl.UserInformationService;
 
 @Controller
 @RequestMapping("/app")
 public class MainController {
 	@Autowired
 	private TipoTrabajoServiceImpl tipoTrabajo;
+	
+	@Autowired
+	private UserInformationService userInformationService;
+	
+	@RequestMapping("")
+	public String defaultPage(){
+		return "redirect:app/index";
+	}
+	
+	@RequestMapping(value="getUserInfo", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Monitoreo getMonitoreoUserInfo(@RequestParam(value="id")Integer id){
+		Monitoreo result = userInformationService.getMonitoreoUserInfo(id);
+		return result;
+	}
+	
 	@RequestMapping(value="index", method=RequestMethod.GET)
 	public String appIndex(){
 		return "/index";
-	}
-	
-	@RequestMapping("menu")
-	public String menu(){
-		return "/tmpl.menu";
-	}
-	
-	@RequestMapping("trabajoDialog")
-	public String tdialog(){
-		return "/tmpl.trabajoDialog";
 	}
 	
 	@RequestMapping(value="getTipoTrabajo", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)

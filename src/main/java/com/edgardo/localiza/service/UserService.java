@@ -4,5 +4,6 @@ import com.edgardo.localiza.framework.GenericService;
 import com.edgardo.localiza.model.entity.User;
 
 public interface UserService extends GenericService<User>{
-	public boolean validateLogin (String user, String pass);
+	public Integer validateLogin (String user, String pass);
+	public String getRole(int id);
 }

@@ -40,7 +40,7 @@ public class User implements Serializable{
 	public String getUser() {
 		return username;
 	}
-	public void setUser(String user) {
+	public void setUsername(String user) {
 		this.username = user;
 	}
 	public String getPass() {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="trabajoAjustesApp">
+<html ng-app="clientesApp">
 <head>
 <title>Administraci&oacute;n de trabajos</title>
 <meta charset="UTF-8" />
@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources//css/app/style.css"></link>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources//css/app/table.css"></link>
 </head>
-<body layout="column" ng-controller="trabajoAjustesCtrl as vm">
+<body layout="column" ng-controller="clientesCtrl as vm">
 	<md-toolbar layout="row">
 		<div class="md-toolbar-tools">
 			<md-button ng-click="vm.toggleSidenav('left')" hide-gt-sm class="md-icon-button"> 
@@ -32,22 +32,38 @@
 				          <th>
 				          	<form class="form-inline">
 						        <div class="form-group">
-						            <input type="text" ng-model="search" class="form-control" placeholder="Buscar">
+						            <input class="searchInput" type="text" ng-model="search" class="form-control" placeholder="Buscar">
 						        </div>
 						    </form>
+				          </th>
+				          <th>
+				          	<md-button id="insertBtn" class="md-primary md-raised" ng-click="newFunction($event)">
+						      Nuevo...
+						    </md-button>
 				          </th>
 				        </tr>
 				      </thead>
 				      <thead>
 				      	<tr>
-				      		<th>Categoria</th>
 				      		<th>Cliente</th>
+				      		<th>Tipo de cliente</th>
+				      		<th></th>
 				      	</tr>
 				      </thead>
 				      <tbody>
-				        <tr ng-repeat="work in list|filter:search">
-				          <td data-title="Categoria">{{work.trabajo}}</td>
-				          <td data-title="Cliente">{{work.descripcion}}</td>
+				        <tr ng-repeat="cliente in list|filter:search| orderBy:'-id'">
+				          <td class="hidden">{{cliente.id}}</td>
+				          <td class="hidden">{{cliente.tipoCliente.id_tipo_cliente}}</td>
+				          <td data-title="Cliente">{{cliente.cliente}}</td>
+				          <td data-title="Tipo de cliente">{{cliente.tipoCliente.tipo_cliente}}</td>
+				          <td class="right-align">
+				          	<a ng-click="deleteFunction($event, cliente)" href="">
+				          		<i class="material-icons crudEliminar">delete_forever</i>
+				          	</a>
+				          	<a ng-click="updateFunction($event, cliente)" href="">
+				          		<i class="material-icons crudModificar" >border_color</i>
+				          	</a>
+				          </td>
 				        </tr>
 				      </tbody>
 				    </table>
@@ -69,5 +85,5 @@
 <script
 	src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/angularjs/trabajoajustes.js"></script>
+	src="${pageContext.request.contextPath}/resources/js/angularjs/clientes.js"></script>
 </html>

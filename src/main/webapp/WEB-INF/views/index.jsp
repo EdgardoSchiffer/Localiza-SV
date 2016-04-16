@@ -25,10 +25,10 @@
 		<div layout="column" flex id="content" layout-align="center center">
 			<md-content layout="column" flex class="md-padding">
 				<div class="table-responsive-vertical shadow-z-1">
-				  <table id="table" class="table table-hover table-mc-light-blue" rules="none">
+				  <table id="table" class="table table-hover table-mc-light-blue" at-table at-paginated at-list="list" at-config="config" rules="none">
 				      <thead id="tblTitle">
 				        <tr>
-				          <th colspan="4">Mi informaci&oacute;n</th>
+				          <th colspan="5">Mi informaci&oacute;n</th>
 				        </tr>
 				      </thead>
 				      <thead>
@@ -37,17 +37,24 @@
 				      		<th>Apellido</th>
 				      		<th>Usuario</th>
 				      		<th>Contraseña</th>
+				      		<th></th>
 				      	</tr>
 				      </thead>
 				      <tbody>
-				        <tr>
-				          <td data-title="Nombre">Edgardo</td>
-				          <td data-title="Apellido">Argueta</td>
-				          <td data-title="Usuario">operador8</td>
-				          <td data-title="Contraseña">*******</td>
+				        <tr ng-repeat="user in list">
+				          <td data-title="Nombre">{{user.nombre}}</td>
+				          <td data-title="Apellido">{{user.apellido}}</td>
+				          <td data-title="Usuario">{{user.user}}</td>
+				          <td data-title="Contraseña">{{user.pass}}</td>
+				          <td>
+				          	<a ng-click="updateFunction($event, user)" href="">
+				          		<i class="material-icons crudModificar" >border_color</i>
+				          	</a>
+				          </td>
 				        </tr>
 				      </tbody>
 				    </table>
+				    <at-pagination at-list="list" at-config="config"></at-pagination>
 				  </div>
 			</md-content>
 		</div>

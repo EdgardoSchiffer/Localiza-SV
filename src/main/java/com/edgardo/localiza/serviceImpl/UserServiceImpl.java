@@ -37,29 +37,35 @@ public class UserServiceImpl implements UserService{
 		return null;
 	}
 	
-	private SimpleJdbcCall storedProcedure;
+	private SimpleJdbcCall loginValidate;
+	private SimpleJdbcCall getRole;
 	
 	@Autowired
 	public void setDataSource(DataSource dataSource)
 	{
-		this.storedProcedure = new SimpleJdbcCall(dataSource)
+		this.loginValidate = new SimpleJdbcCall(dataSource)
 		.withProcedureName("loginvalidate");
-		
+		this.getRole = new SimpleJdbcCall(dataSource)
+		.withFunctionName("getRole");
 	}	
 	
 	@Override
-	public boolean validateLogin(String user, String pass) {
+	public Integer validateLogin(String user, String pass) {
 		// TODO Auto-generated method stub
 		SqlParameterSource in = new MapSqlParameterSource().addValue("loginusername",user).addValue("loginpass",pass);
-		Map<String, Object> resul = storedProcedure.execute(in);
+		Map<String, Object> resul = loginValidate.execute(in);
 		Object response = resul.get("#result-set-1");
 		String valoresArr = response.toString();
 		String values = valoresArr.substring(9, 10);
-		if(Integer.valueOf(values) == 1){
-			return true;
-		}else{
-			return false;
-		}
+		return Integer.valueOf(values);
+	}
+	
+	@Override
+	public String getRole(int id) {
+		SqlParameterSource in = new MapSqlParameterSource().addValue("id",id);
+		Map<String, Object> resul = getRole.execute(in);
+		String values = (String) resul.get("returnvalue");
+		return values;
 	}
 
 	@Override

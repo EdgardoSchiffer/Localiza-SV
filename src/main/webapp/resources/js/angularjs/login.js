@@ -22,12 +22,32 @@ login.controller("loginCtrl", function($scope, $http, $httpParamSerializer, $win
 			  }
 		})
 		.success(function(data){
-			console.log(data)
-			if(!data){
+			data = { "id": ""+data+""}
+			if(data.id < 1){
 				data = "Usuario o contrase&ntilde;a incorrectos."
 				document.getElementById("flash").innerHTML = data + "<a id='failCredentials' onClick='JavaScript:clean()'>x</a>";
 			} else{
-				$window.location.href = "app/index";
+				$http({
+					type: "application/json",
+					method: "POST",
+					url: "getRole",
+					data: $httpParamSerializer(data),
+					dataType: "JSON",
+					headers: {
+					    'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
+					  }
+				})
+				.success(function(role){
+					console.log(role);
+					if (role == "admin") {
+						console.log(sessionStorage.setItem("id_user", data.id));
+						console.log(sessionStorage.setItem("rol", role.rol))
+					}else if(role != "false"){
+						console.log(sessionStorage.setItem("id_user", data.id));
+						console.log(sessionStorage.setItem("rol", role.rol))
+						$window.location.href = "app/index";
+					}
+				})	
 			}
 		})
 	};
