@@ -37,9 +37,7 @@
 						    </form>
 				          </th>
 				          <th>
-				          	<md-button id="insertBtn" class="md-primary md-raised" ng-click="newFunction($event)">
-						      Nuevo...
-						    </md-button>
+				          	
 				          </th>
 				        </tr>
 				      </thead>

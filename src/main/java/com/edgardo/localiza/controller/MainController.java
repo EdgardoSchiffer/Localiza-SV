@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.edgardo.localiza.model.entity.Monitoreo;
 import com.edgardo.localiza.model.entity.TipoTrabajo;
+import com.edgardo.localiza.model.entity.Trabajo;
+import com.edgardo.localiza.model.repository.TrabajoDetailService;
 import com.edgardo.localiza.serviceImpl.TipoTrabajoServiceImpl;
 import com.edgardo.localiza.serviceImpl.UserInformationService;
 
@@ -20,6 +22,8 @@ import com.edgardo.localiza.serviceImpl.UserInformationService;
 public class MainController {
 	@Autowired
 	private TipoTrabajoServiceImpl tipoTrabajo;
+	@Autowired
+	private TrabajoDetailService trabajoService;
 	
 	@Autowired
 	private UserInformationService userInformationService;
@@ -27,6 +31,11 @@ public class MainController {
 	@RequestMapping("")
 	public String defaultPage(){
 		return "redirect:app/index";
+	}
+	
+	@RequestMapping(value="getTrabajo", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<Trabajo> getTrabajo(@RequestParam(value="id")int id){
+		return trabajoService.findAll(id);
 	}
 	
 	@RequestMapping(value="getUserInfo", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
