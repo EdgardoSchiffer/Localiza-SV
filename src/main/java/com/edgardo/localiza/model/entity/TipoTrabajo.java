@@ -28,7 +28,6 @@ public class TipoTrabajo implements Serializable{
 	@Column(length=300)
 	private String descripcion;
 	public TipoTrabajo() {
-		super();
 	}
 	public int getId() {
 		return id;

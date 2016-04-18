@@ -26,7 +26,6 @@ public class MarcaDispositivo implements Serializable{
 	@Column(length=50)
 	private String marca;
 	public MarcaDispositivo() {
-		super();
 	}
 	public int getId() {
 		return id;

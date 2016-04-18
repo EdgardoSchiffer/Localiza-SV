@@ -28,8 +28,6 @@ public class User implements Serializable{
 	@Column(length=255)
 	private String pass;
 	public User() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	public int getId() {
 		return id;

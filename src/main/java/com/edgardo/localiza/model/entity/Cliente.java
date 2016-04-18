@@ -36,8 +36,6 @@ public class Cliente implements Serializable{
 	@JoinColumn(name = "fk_tipo_cliente", referencedColumnName = "id_tipo_cliente")
 	private TipoCliente tipoCliente;
 	public Cliente() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	public int getId() {
 		return id;

@@ -22,20 +22,18 @@ public class Tecnicos implements Serializable{
 	@GenericGenerator(name="autoIncrement" , strategy="increment")
 	@GeneratedValue(generator="autoIncrement")
 	@Column(name="id_tecnico")
-	private int tecnicos;
+	private int id;
 	@Column(length=70)
 	private String nombre;
 	@Column(length=70)
 	private String apellidos;
 	public Tecnicos() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
-	public int getTecnicos() {
-		return tecnicos;
+	public int getId() {
+		return id;
 	}
-	public void setTecnicos(int tecnicos) {
-		this.tecnicos = tecnicos;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getNombre() {
 		return nombre;
@@ -49,6 +47,7 @@ public class Tecnicos implements Serializable{
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
+	
 	
 	
 }

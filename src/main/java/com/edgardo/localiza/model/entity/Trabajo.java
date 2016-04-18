@@ -9,12 +9,25 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="localiza_trabajo")
+@NamedQueries({
+	@NamedQuery(name="Trabajo.findAll", query="SELECT t.boleta, t.comentario, t.estado, t.fecha, t.imei, t.sim, t.unidad, c.cliente, concat(e.nombre, ' ', e.apellido) as ejecutiva, ma.marca, mo.modelo, concat(m.nombre, ' ', m.apellido) as monitoreo, concat(tec.nombre, ' ', tec.apellidos) as tecnico, u.ubicacion "+
+											  "FROM Trabajo as t "+
+											  "INNER JOIN t.cliente as c "+
+											  "INNER JOIN t.ejecutiva as e "+
+											  "INNER JOIN t.modeloDispositivo as mo "+
+											  "INNER JOIN t.marcaDispositivo as ma "+
+											  "INNER JOIN t.monitoreo as m "+
+											  "INNER JOIN t.tecnico as tec "+
+											  "INNER JOIN t.ubicacionGps as u ")
+})
 public class Trabajo implements Serializable{
 
 	/**
@@ -60,8 +73,6 @@ public class Trabajo implements Serializable{
 	@ManyToOne
 	private UbicacionGps ubicacionGps;
 	public Trabajo() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public int getBoleta() {

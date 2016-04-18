@@ -33,8 +33,6 @@ public class Monitoreo implements Serializable{
 	@OneToOne
 	private User user;
 	public Monitoreo() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	public int getId() {
 		return id;

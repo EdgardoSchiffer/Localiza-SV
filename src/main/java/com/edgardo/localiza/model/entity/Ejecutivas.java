@@ -33,8 +33,6 @@ public class Ejecutivas implements Serializable{
 	@OneToOne
 	private User user;
 	public Ejecutivas() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	public int getId() {
 		return id;

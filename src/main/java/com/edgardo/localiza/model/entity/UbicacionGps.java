@@ -25,5 +25,21 @@ public class UbicacionGps implements Serializable{
 	private int id;
 	@Column(length = 100)
 	private String ubicacion;
+	public UbicacionGps() {
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getUbicacion() {
+		return ubicacion;
+	}
+	public void setUbicacion(String ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+	
+	
 
 }

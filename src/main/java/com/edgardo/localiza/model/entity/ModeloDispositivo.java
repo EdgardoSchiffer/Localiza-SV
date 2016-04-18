@@ -36,8 +36,6 @@ public class ModeloDispositivo implements Serializable{
 	@JoinColumn(name="fk_id_marca", referencedColumnName="id_marca")
 	private MarcaDispositivo marca;
 	public ModeloDispositivo() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	public int getId() {
 		return id;

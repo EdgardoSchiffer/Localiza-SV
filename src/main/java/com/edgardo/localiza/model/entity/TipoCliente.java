@@ -28,8 +28,6 @@ public class TipoCliente implements Serializable{
 	@Column(length=300)
 	private String descripcion;
 	public TipoCliente() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	public int getId_tipo_cliente() {
 		return id;

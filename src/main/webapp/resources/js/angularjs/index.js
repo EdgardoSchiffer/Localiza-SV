@@ -5,14 +5,14 @@ var app = angular.module("localizaApp", ['ngMaterial'])
 		.accentPalette('indigo');
 });
 
-app.factory('getList', function($http){
+app.factory('getList', function($http, $httpParamSerializer){
 	return {
-		list: function(){
+		list: function(id){
 			return $http({
 				type: "application/json",
 				method: 'POST',
-				url: 'getUserDetails',
-				//data: $httpParamSerializer($scope.login),
+				url: 'getUserInfo',
+				data: $httpParamSerializer(id),
 				//dataType: "JSON",
 				headers: {
 				    'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
@@ -68,12 +68,11 @@ app.controller('AppController', function($mdSidenav, $scope, $mdDialog, $mdMedia
 	   * GETTING INFO FROM BD
 	   * 
 	   */	  
-	  json = [{ "nombre": "Edgardo", "apellido": "Argueta", "user": "operador8", "pass": "********" }];
-	  $scope.list = json;
 	  console.log($scope.list)
-	  /*getList.list().then(function(response){
+	  getList.list({"id": ""+sessionStorage.getItem('id_user')+""}).then(function(response){
 		  $scope.list = response.data
-	  })*/
+		  $scope.rol = sessionStorage.getItem('rol');
+	  })
 	  
 	  /**
 	   * 

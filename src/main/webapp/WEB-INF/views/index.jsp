@@ -36,16 +36,16 @@
 				      		<th>Nombre</th>
 				      		<th>Apellido</th>
 				      		<th>Usuario</th>
-				      		<th>Contraseña</th>
+				      		<th>Tipo de usuario</th>
 				      		<th></th>
 				      	</tr>
 				      </thead>
 				      <tbody>
-				        <tr ng-repeat="user in list">
-				          <td data-title="Nombre">{{user.nombre}}</td>
-				          <td data-title="Apellido">{{user.apellido}}</td>
-				          <td data-title="Usuario">{{user.user}}</td>
-				          <td data-title="Contraseña">{{user.pass}}</td>
+				        <tr>
+				          <td data-title="Nombre">{{list.nombre}}</td>
+				          <td data-title="Apellido">{{list.apellido}}</td>
+				          <td data-title="Usuario">{{list.user.user}}</td>
+				          <td data-title="Tipo de usuario">{{rol}}</td>
 				          <td>
 				          	<a ng-click="updateFunction($event, user)" href="">
 				          		<i class="material-icons crudModificar" >border_color</i>

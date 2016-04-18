@@ -1,5 +1,6 @@
 package com.edgardo.localiza.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import com.edgardo.localiza.model.entity.TipoTrabajo;
 import com.edgardo.localiza.model.entity.Trabajo;
 import com.edgardo.localiza.model.repository.TrabajoDetailService;
 import com.edgardo.localiza.serviceImpl.TipoTrabajoServiceImpl;
+import com.edgardo.localiza.serviceImpl.TrabajoServiceImpl;
 import com.edgardo.localiza.serviceImpl.UserInformationService;
 
 @Controller
@@ -24,6 +26,8 @@ public class MainController {
 	private TipoTrabajoServiceImpl tipoTrabajo;
 	@Autowired
 	private TrabajoDetailService trabajoService;
+	@Autowired
+	private TrabajoServiceImpl trabajoServiceImpl;
 	
 	@Autowired
 	private UserInformationService userInformationService;
@@ -38,7 +42,14 @@ public class MainController {
 		return trabajoService.findAll(id);
 	}
 	
-	@RequestMapping(value="getUserInfo", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="getTrabajos", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<Trabajo> getTrabajos(){
+		List<Trabajo> trabajo = new ArrayList<Trabajo>();
+		trabajo = trabajoServiceImpl.findAll();
+		return trabajo;
+	}
+	
+	@RequestMapping(value="getUserInfo", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Monitoreo getMonitoreoUserInfo(@RequestParam(value="id")Integer id){
 		Monitoreo result = userInformationService.getMonitoreoUserInfo(id);
 		return result;
