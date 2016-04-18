@@ -19,13 +19,14 @@
           <label>Usuario</label>
           <input ng-model="updateUser.user" type="text" placeholder="Usuario" ng-required="true">
         </md-input-container>
-        <md-input-container class="md-block">
+        <md-switch ng-model="passwordFlag">Modificar contraseña ( {{passwordFlag ? "Si" : "No"}} )</md-switch>
+        <md-input-container ng-if="passwordFlag" class="md-block">
           <label>Contrase&ntilde;a</label>
-          <input ng-model="updateUser.newPass" type="text" placeholder="Contrase&ntilde;a" ng-required="true">
+          <input ng-model="updateUser.password" type="text" placeholder="Contrase&ntilde;a" ng-required="true">
         </md-input-container>
-        <md-input-container class="md-block">
+        <md-input-container ng-if="passwordFlag" class="md-block">
           <label>Confirmar contrase&ntilde;a</label>
-          <input ng-model="updateUser.newPassConfirm" type="text" placeholder="Confirmar contrase&ntilde;a" ng-required="true">
+          <input ng-model="updateUser.passwordConfirm" type="text" placeholder="Confirmar contrase&ntilde;a" ng-required="true">
         </md-input-container>
       </div>
     </md-dialog-content>

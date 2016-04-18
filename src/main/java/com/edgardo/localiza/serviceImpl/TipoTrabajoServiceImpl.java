@@ -40,7 +40,7 @@ public class TipoTrabajoServiceImpl implements TipoTrabajoService{
 	public TipoTrabajo update(TipoTrabajo entity, Integer id) {
 		// TODO Auto-generated method stub
 		TipoTrabajo tipoTrabajo = repository.findOne(id);
-		tipoTrabajo.setTipo_trabajo(entity.getTipo_trabajo());
+		tipoTrabajo.setTipoTrabajo(entity.getTipoTrabajo());
 		tipoTrabajo.setDescripcion(entity.getDescripcion());
 		return repository.saveAndFlush(tipoTrabajo);
 	}

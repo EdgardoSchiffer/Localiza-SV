@@ -68,10 +68,11 @@ app.controller('AppController', function($mdSidenav, $scope, $mdDialog, $mdMedia
 	   * GETTING INFO FROM BD
 	   * 
 	   */	  
-	  console.log($scope.list)
 	  getList.list({"id": ""+sessionStorage.getItem('id_user')+""}).then(function(response){
 		  $scope.list = response.data
-		  $scope.rol = sessionStorage.getItem('rol');
+		  $scope.list.id = $scope.list.user.id
+		  $scope.list.user = $scope.list.user.user;
+		  $scope.list.rol = sessionStorage.getItem('rol');
 	  })
 	  
 	  /**
@@ -98,6 +99,7 @@ app.controller('AppController', function($mdSidenav, $scope, $mdDialog, $mdMedia
 		      }
 		    })
 		    .then(function(answer) {
+		    	delete $scope.updateUser.passwordConfirm
 		      if (answer == "save") {
 		    	  $http({
 		  			type: "application/json",
@@ -110,13 +112,15 @@ app.controller('AppController', function($mdSidenav, $scope, $mdDialog, $mdMedia
 		  			  }
 		  		})
 		  		.success(function(data){
-		  			$scope.list = undefined;
-		  			getList.list().then(function(response){
+		  			getList.list({"id": ""+sessionStorage.getItem('id_user')+""}).then(function(response){
 		  			  $scope.list = response.data
-		  			})
+		  			  $scope.list.id = $scope.list.user.id
+		  			  $scope.list.user = $scope.list.user.user;
+		  			  $scope.list.rol = sessionStorage.getItem('rol');
+		  		  })
 		  			$mdToast.show(
 		  			      $mdToast.simple()
-		  			        .textContent('Categoria modificada con exito')
+		  			        .textContent('Datos modificados con exito')
 		  			        .position(pinTo )
 		  			        .hideDelay(3000)
 		  			    );
@@ -133,7 +137,7 @@ app.controller('AppController', function($mdSidenav, $scope, $mdDialog, $mdMedia
  * 
  */
 
-function DialogController($scope, $mdDialog, locals) {
+function DialogController($scope, $mdDialog, locals, $http, $httpParamSerializer) {
 	var originalData = angular.copy(locals.items);
 	$scope.title = locals.title;
 	$scope.updateUser = locals.items;
@@ -157,11 +161,47 @@ function DialogController($scope, $mdDialog, locals) {
 				  angular.copy(originalData, $scope.updateUser);
 				  return false;
 			  }
-			  if(!notEmpty($scope.updateUser.newPass, "contraseña")){
-				  return false;
+			  if($scope.passwordFlag){
+				  if(!notEmpty($scope.updateUser.password, "contraseña")){
+					  return false;
+				  }
+				  if(!notEmpty($scope.updateUser.passwordConfirm, "confirmar contraseña")){
+					  return false;
+				  }
+				  $scope.updateUser.pwd = true;
+				  if ($scope.updateUser.password != $scope.updateUser.passwordConfirm) {
+					alert("Las contraseñas no coinciden");
+					return false;
+				}
 			  }
-			  if(!notEmpty($scope.updateUser.newPassConfirm, "confirmar contraseña")){
-				  return false;
+			  if (!$scope.passwordFlag) {
+				$scope.updateUser.password = "";
+				$scope.updateUser.pwd = false;
+			  }
+			  if ($scope.updateUser.user != originalData.user) {
+				  $http({
+					  type: "application/json",
+			  			method: 'POST',
+			  			url: 'uniqueUser',
+			  			data: $httpParamSerializer({ "user" : $scope.updateUser.user }),
+			  			dataType: "JSON",
+			  			headers: {
+			  			    'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
+			  			  }
+				  })
+				  .success(function(data){
+					  if(data == 1){
+						  alert("Ya existe el usuario, por favor ingrese otro");
+						  return false;
+					  }
+					  else{
+						  $mdDialog.hide(answer);
+						  return true;
+					  }
+				  })
+			  }else{
+				  $mdDialog.hide(answer);
+				  return true;
 			  }
 		  }else{
 			  angular.copy(originalData, $scope.updateUser);
@@ -169,7 +209,6 @@ function DialogController($scope, $mdDialog, locals) {
 		  }
 	  };
 }
-
 
 function notEmpty(field, fieldName){
 	if (field == "" || field == undefined) {

@@ -15,7 +15,15 @@ import org.springframework.stereotype.Repository;
 
 import com.edgardo.localiza.model.entity.Cliente;
 import com.edgardo.localiza.model.entity.Trabajo;
-
+/**
+ * 
+ * 
+ * ESTA CLASE NO TIENE FUNCION ACTUALMENTE, SOLO ESTA PARA PROPOSITOS
+ * INFORMATIVOS, CONTIENE UNA FORMA ALTERNATIVA PARA EJECUTIVAR
+ * STORED PROCEDURES
+ * @author ed_ba
+ *
+ */
 @Repository
 public class TrabajoDetailService {
 	private NamedParameterJdbcTemplate jdbcTemplate;

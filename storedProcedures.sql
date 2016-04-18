@@ -1,3 +1,7 @@
+-- Function: public.getrole(integer)
+
+-- DROP FUNCTION public.getrole(integer);
+
 CREATE OR REPLACE FUNCTION public.getrole(id integer)
   RETURNS character varying AS
 $BODY$
@@ -39,11 +43,9 @@ ALTER FUNCTION public.getrole(integer)
 
 
 
+-- Function: public.getuserinfo(integer)
 
-
-
-
-
+-- DROP FUNCTION public.getuserinfo(integer);
 
 CREATE OR REPLACE FUNCTION public.getuserinfo(IN user_id integer)
   RETURNS TABLE(nombre character varying, apellido character varying, username character varying) AS
@@ -87,15 +89,11 @@ ALTER FUNCTION public.getuserinfo(integer)
 
 
 
+  -- Function: public.insertuser(character varying, character varying, character varying, character varying, character varying)
 
+-- DROP FUNCTION public.insertuser(character varying, character varying, character varying, character varying, character varying);
 
-
-
-
-
-
-
-  CREATE OR REPLACE FUNCTION public.insertuser(
+CREATE OR REPLACE FUNCTION public.insertuser(
     user_name character varying,
     pass_word character varying,
     nombre_ character varying,
@@ -139,16 +137,7 @@ ALTER FUNCTION public.insertuser(character varying, character varying, character
 
 
 
-
-
-
-
-
-
-
-
-
-  CREATE OR REPLACE FUNCTION public.loginvalidate(
+CREATE OR REPLACE FUNCTION public.loginvalidate(
     loginusername character varying,
     loginpass character varying)
   RETURNS integer AS
@@ -168,4 +157,67 @@ $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
 ALTER FUNCTION public.loginvalidate(character varying, character varying)
+  OWNER TO postgres;
+
+
+
+
+
+
+CREATE OR REPLACE FUNCTION public.uniqueuser(user_name character varying)
+  RETURNS integer AS
+$BODY$
+DECLARE 
+	result int;
+BEGIN
+	SELECT COUNT(*) AS result
+	INTO result
+	FROM localiza_user
+	WHERE username = user_name;
+	RETURN result;
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION public.uniqueuser(character varying)
+  OWNER TO postgres;
+
+
+
+
+
+
+
+CREATE OR REPLACE FUNCTION public.updateuser(
+    user_name character varying,
+    pass_word character varying,
+    nombre_ character varying,
+    apellido_ character varying,
+    rol character varying,
+    password_flag boolean,
+    id integer)
+  RETURNS boolean AS
+$BODY$
+BEGIN
+	IF password_flag THEN
+		UPDATE localiza_user SET username = user_name, pass = pass_word WHERE id_user= id;
+		IF rol = 'Ejecutiva' THEN
+			UPDATE localiza_ejecutivas SET nombre = nombre_, apellido = apellido_ WHERE fk_usuario = id;
+		END IF;
+		IF rol ='Monitoreo' THEN
+			UPDATE localiza_monitoreo SET nombre = nombre_, apellido = apellido_ WHERE fk_usuario = id;
+		END IF;
+	ELSE
+		UPDATE localiza_user SET username = user_name WHERE id_user= id;
+	END IF;
+	IF FOUND THEN
+		RETURN TRUE;
+	ELSE
+		RETURN FALSE;
+	END IF;
+END
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION public.updateuser(character varying, character varying, character varying, character varying, character varying, boolean, integer)
   OWNER TO postgres;

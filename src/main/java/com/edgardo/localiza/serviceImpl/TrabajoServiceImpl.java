@@ -31,6 +31,11 @@ public class TrabajoServiceImpl implements TrabajoService{
 		// TODO Auto-generated method stub
 		return repository.findAll();
 	}
+	
+	public List<Trabajo> findByType(String tipo){
+		return repository.findByTipoTrabajoTipoTrabajo(tipo);
+		
+	}
 
 	@Override
 	public Trabajo update(Trabajo entity, Integer id) {

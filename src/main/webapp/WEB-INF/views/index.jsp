@@ -44,10 +44,10 @@
 				        <tr>
 				          <td data-title="Nombre">{{list.nombre}}</td>
 				          <td data-title="Apellido">{{list.apellido}}</td>
-				          <td data-title="Usuario">{{list.user.user}}</td>
-				          <td data-title="Tipo de usuario">{{rol}}</td>
+				          <td data-title="Usuario">{{list.user}}</td>
+				          <td data-title="Tipo de usuario">{{list.rol}}</td>
 				          <td>
-				          	<a ng-click="updateFunction($event, user)" href="">
+				          	<a ng-click="updateFunction($event, list)" href="">
 				          		<i class="material-icons crudModificar" >border_color</i>
 				          	</a>
 				          </td>

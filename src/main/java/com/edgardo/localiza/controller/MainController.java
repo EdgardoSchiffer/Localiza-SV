@@ -42,18 +42,37 @@ public class MainController {
 		return trabajoService.findAll(id);
 	}
 	
-	@RequestMapping(value="getTrabajos", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Trabajo> getTrabajos(){
+	@RequestMapping(value="getTrabajos", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<Trabajo> getTrabajos(@RequestParam(value="tipo") String tipo){
 		List<Trabajo> trabajo = new ArrayList<Trabajo>();
-		trabajo = trabajoServiceImpl.findAll();
+		trabajo = trabajoServiceImpl.findByType(tipo);
 		return trabajo;
 	}
 	
 	@RequestMapping(value="getUserInfo", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Monitoreo getMonitoreoUserInfo(@RequestParam(value="id")Integer id){
-		Monitoreo result = userInformationService.getMonitoreoUserInfo(id);
+	public @ResponseBody Monitoreo getMonitoreoUserInfo(@RequestParam(value="id")int id){
+		Monitoreo result = userInformationService.getUserInfo(id);
 		return result;
 	}
+	
+	@RequestMapping(value="updateUser", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody boolean updateUser(
+			@RequestParam(value="id")int id,
+			@RequestParam(value="nombre")String nombre,
+			@RequestParam(value="apellido")String apellido,
+			@RequestParam(value="rol")String rol,
+			@RequestParam(value="user")String user,
+			@RequestParam(value="password")String pass,
+			@RequestParam(value="pwd")boolean pwd
+			){
+		return userInformationService.updateUser(user, pass, nombre, apellido, rol, id, pwd);
+	}
+	
+	@RequestMapping(value="uniqueUser", method=RequestMethod.POST)
+	public @ResponseBody int uniqueUser(@RequestParam(value="user")String user){
+		return userInformationService.uniqueUser(user);
+	}
+	
 	
 	@RequestMapping(value="index", method=RequestMethod.GET)
 	public String appIndex(){
@@ -69,7 +88,7 @@ public class MainController {
 	public @ResponseBody TipoTrabajo newTipoTrabajo(@RequestParam(value="tipo_trabajo")String tipo,
 													@RequestParam(value="descripcion")String desc){
 		TipoTrabajo tipoEntity = new TipoTrabajo();
-		tipoEntity.setTipo_trabajo(tipo);
+		tipoEntity.setTipoTrabajo(tipo);
 		tipoEntity.setDescripcion(desc);
 		return tipoTrabajo.save(tipoEntity);
 	}
@@ -85,7 +104,7 @@ public class MainController {
 			@RequestParam(value="descripcion")String desc,
 			@RequestParam(value="id")int id){
 		TipoTrabajo entity = new TipoTrabajo();
-		entity.setTipo_trabajo(tipo);
+		entity.setTipoTrabajo(tipo);
 		entity.setDescripcion(desc);
 		return tipoTrabajo.update(entity, id);
 	}

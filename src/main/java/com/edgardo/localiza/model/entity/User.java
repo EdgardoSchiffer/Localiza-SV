@@ -22,7 +22,7 @@ public class User implements Serializable{
 	@GenericGenerator(name="autoIncrement" , strategy="increment")
 	@GeneratedValue(generator="autoIncrement")
 	@Column(name="id_user")
-	private Integer id;
+	private int id;
 	@Column(length=100)
 	private String username;
 	@Column(length=255)

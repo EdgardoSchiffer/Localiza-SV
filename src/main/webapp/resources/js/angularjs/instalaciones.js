@@ -10,15 +10,16 @@ var app = angular.module("instalacionesApp", ['ngMaterial'])
  * FUNCTION TO RETRIEVE DATABASE DATA
  * 
  */
-app.factory('getList', function($http){
+app.factory('getList', function($http, $httpParamSerializer){
 	return {
-		list: function(){
+		list: function(tipo){
+			console.log(tipo)
 			return $http({
 				type: "application/json",
-				method: 'GET',
+				method: 'POST',
 				url: 'getTrabajos',
-				//data: $httpParamSerializer($scope.login),
-				//dataType: "JSON",
+				data: $httpParamSerializer(tipo),
+				dataType: "JSON",
 				headers: {
 				    'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
 				  }
@@ -76,7 +77,7 @@ app.controller('instalacionesCtrl',  function($mdSidenav, $scope, $mdDialog, $md
 	   * 
 	   */	  
 	  
-	  getList.list().then(function(response){
+	  getList.list({"tipo": "Instalacion"}).then(function(response){
 		  $scope.list = response.data
 		  console.log($scope.list)
 	  })
