@@ -1,4 +1,4 @@
-var app = angular.module("instalacionesApp", ['ngMaterial'])
+var app = angular.module("ubicacionApp", ['ngMaterial'])
 	.config(function($mdThemingProvider) {
 		$mdThemingProvider.theme('default')
 			.primaryPalette('teal')
@@ -10,16 +10,15 @@ var app = angular.module("instalacionesApp", ['ngMaterial'])
  * FUNCTION TO RETRIEVE DATABASE DATA
  * 
  */
-app.factory('getList', function($http, $httpParamSerializer){
+app.factory('getList', function($http){
 	return {
-		list: function(tipo){
-			console.log(tipo)
+		list: function(){
 			return $http({
 				type: "application/json",
 				method: 'POST',
-				url: 'getTrabajos',
-				data: $httpParamSerializer(tipo),
-				dataType: "JSON",
+				url: 'getUbicacion',
+				//data: $httpParamSerializer($scope.login),
+				//dataType: "JSON",
 				headers: {
 				    'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
 				  }
@@ -28,10 +27,9 @@ app.factory('getList', function($http, $httpParamSerializer){
 	}
 });
 var json;
-var tipo;
-app.controller('instalacionesCtrl',  function($mdSidenav, $scope, $mdDialog, $mdMedia, $http, $httpParamSerializer, getList, $mdToast) {
+app.controller('ubicacionCtrl',  function($mdSidenav, $scope, $mdDialog, $mdMedia, $http, $httpParamSerializer, getList, $mdToast) {
 	  var vm = this;
-	  $scope.tipoCliente = {};
+
 	  vm.toggleSidenav = function(menuId) {
 	    $mdSidenav(menuId).toggle();
 	  };
@@ -77,11 +75,9 @@ app.controller('instalacionesCtrl',  function($mdSidenav, $scope, $mdDialog, $md
 	   * 
 	   */	  
 	  
-	  getList.list({"tipo": "Instalacion"}).then(function(response){
+	  getList.list().then(function(response){
 		  $scope.list = response.data
-		  console.log($scope.list)
 	  })
-	  
 	  
 	  /**
 	   * 
@@ -89,20 +85,20 @@ app.controller('instalacionesCtrl',  function($mdSidenav, $scope, $mdDialog, $md
 	   * 
 	   */
 	  
-	  $scope.deleteFunction = function(ev, trabajo){
+	  $scope.deleteFunction = function(ev, ubicacion){
 		  var confirm = $mdDialog.confirm()
-	          .title('Eliminar cliente')
-	          .textContent('Desea eliminar el trabajo con boleta '+trabajo.boleta+'? (Esta accion no se puede deshacer)')
+	          .title('Eliminar ubicacion')
+	          .textContent('Desea eliminar la ubicacion '+ubicacion.ubicacion+'? (Esta accion no se puede deshacer)')
 	          .ariaLabel('Lucky day')
 	          .targetEvent(ev)
 	          .ok('Eliminar')
 	          .cancel('Cancelar');
 	  $mdDialog.show(confirm).then(function() {
-		  console.log(JSON.parse('{"id":"'+trabajo.id+'"}'));
+		  console.log(JSON.parse('{"id":"'+ubicacion.id+'"}'));
 	      $http({
 	    	  method: "POST",
-	    	  url: "deleteCliente",
-	    	  data: $httpParamSerializer(JSON.parse('{"id":"'+trabajo.id+'"}')),
+	    	  url: "deleteUbicacion",
+	    	  data: $httpParamSerializer(JSON.parse('{"id":"'+ubicacion.id+'"}')),
 	  			headers: {
 	  			    'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
 	  			  }
@@ -115,7 +111,7 @@ app.controller('instalacionesCtrl',  function($mdSidenav, $scope, $mdDialog, $md
 	  			if (data) {
 	  				$mdToast.show(
 	  				      $mdToast.simple()
-	  				        .textContent('Trabajo eliminado con exito')
+	  				        .textContent('Ubicacion eliminada con exito')
 	  				        .position(pinTo )
 	  				        .hideDelay(3000)
 	  				    );
@@ -137,12 +133,12 @@ app.controller('instalacionesCtrl',  function($mdSidenav, $scope, $mdDialog, $md
 	   * 
 	   */
 	  
-	  $scope.updateFunction = function(ev, trabajo){
-		  delete trabajo.$$hashKey;
+	  $scope.updateFunction = function(ev, ubicacion){
+		  delete ubicacion.$$hashKey;
 		  var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 		    $mdDialog.show({
 		      controller: DialogController,
-		      templateUrl: 'trabajosDialog',
+		      templateUrl: 'ubicacionDialog',
 		      scope: $scope,
 		      preserveScope: true,
 		      parent: angular.element(document.body),
@@ -150,17 +146,16 @@ app.controller('instalacionesCtrl',  function($mdSidenav, $scope, $mdDialog, $md
 		      clickOutsideToClose:true,
 		      fullscreen: useFullScreen,
 		      locals: {
-		    	  items: trabajo,
-		    	  title: "Actualizar cliente"
+		    	  items: ubicacion,
+		    	  title: "Actualizar ubicacion"
 		      }
 		    })
 		    .then(function(answer) {
-			    console.log($scope.newTipo)
 		      if (answer == "save") {
 		    	  $http({
 		  			type: "application/json",
 		  			method: 'POST',
-		  			url: 'updateTrabajo',
+		  			url: 'updateUbicacion',
 		  			data: $httpParamSerializer($scope.newTipo),
 		  			dataType: "JSON",
 		  			headers: {
@@ -174,7 +169,7 @@ app.controller('instalacionesCtrl',  function($mdSidenav, $scope, $mdDialog, $md
 		  			})
 		  			$mdToast.show(
 		  			      $mdToast.simple()
-		  			        .textContent('Cliente modificado con exito')
+		  			        .textContent('Marca modificada con exito')
 		  			        .position(pinTo )
 		  			        .hideDelay(3000)
 		  			    );
@@ -193,7 +188,7 @@ app.controller('instalacionesCtrl',  function($mdSidenav, $scope, $mdDialog, $md
 		    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 		    $mdDialog.show({
 		      controller: DialogController,
-		      templateUrl: 'trabajosDialog',
+		      templateUrl: 'ubicacionDialog',
 		      scope: $scope,
 		      preserveScope: true,
 		      parent: angular.element(document.body),
@@ -205,12 +200,11 @@ app.controller('instalacionesCtrl',  function($mdSidenav, $scope, $mdDialog, $md
 		      }
 		    })
 		    .then(function(answer) {
-			    console.log($scope.newTipo)
 		      if (answer == "save") {
 		    	  $http({
 		  			type: "application/json",
 		  			method: 'POST',
-		  			url: 'newTrabajo',
+		  			url: 'newUbicacion',
 		  			data: $httpParamSerializer($scope.newTipo),
 		  			dataType: "JSON",
 		  			headers: {
@@ -224,7 +218,7 @@ app.controller('instalacionesCtrl',  function($mdSidenav, $scope, $mdDialog, $md
 		  			})
 		  			$mdToast.show(
 		  			      $mdToast.simple()
-		  			        .textContent('Categoria guardada con exito')
+		  			        .textContent('Ubicacion guardada con exito')
 		  			        .position(pinTo )
 		  			        .hideDelay(3000)
 		  			    );
@@ -240,18 +234,7 @@ app.controller('instalacionesCtrl',  function($mdSidenav, $scope, $mdDialog, $md
  * 
  */
 
-function DialogController($scope, $mdDialog, locals, $http) {
-	$http({
-		type: "application/json",
-		method: 'POST',
-		url: 'getTipoCliente',
-		headers: {
-			  'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
-		}
-  })
-  .success(function(data){
-	  $scope.tipoCliente = data;
-  })
+function DialogController($scope, $mdDialog, locals) {
 	var originalData = angular.copy(locals.items);
 	$scope.title = locals.title;
 	$scope.newTipo = locals.items;
@@ -263,11 +246,11 @@ function DialogController($scope, $mdDialog, locals, $http) {
 	  };
 	  $scope.answer = function(answer) {
 		  if (answer == "save") {
-			  if ($scope.newTipo.cliente != "" && $scope.newTipo.cliente != undefined) {
-			    	$mdDialog.hide(answer);	
+			  if ($scope.newTipo.ubicacion != "" && $scope.newTipo.ubicacion != undefined) {
+			    	$mdDialog.hide(answer);
 				}else{
 					angular.copy(originalData, $scope.newTipo);
-					alert("Llene el cliente")
+					alert("Llene la ubicacion")
 				}
 		  }else{
 			  angular.copy(originalData, $scope.newTipo);

@@ -15,7 +15,7 @@
 			<md-button ng-click="vm.toggleSidenav('left')" hide-gt-sm class="md-icon-button"> 
 				<md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon> 
 			</md-button>
-			<h1>Administración de trabajos - Localiza</h1>
+			<h1>Revisiones</h1>
 		</div>
 	</md-toolbar>
 	<div layout="row" flex>

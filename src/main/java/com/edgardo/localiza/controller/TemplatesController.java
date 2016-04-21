@@ -40,4 +40,14 @@ public class TemplatesController {
 	public String moDialog(){
 		return "/tmpl.modelo";
 	}
+	
+	@RequestMapping("ubicacionDialog")
+	public String uDialog(){
+		return "/tmpl.ubicacion";
+	}
+	
+	@RequestMapping("trabajosDialog")
+	public String tDialog(){
+		return "/tmpl.trabajos";
+	}
 }

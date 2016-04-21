@@ -15,7 +15,7 @@
 			<md-button ng-click="vm.toggleSidenav('left')" hide-gt-sm class="md-icon-button"> 
 				<md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon> 
 			</md-button>
-			<h1>Administración de trabajos - Localiza</h1>
+			<h1>Tipos de trabajos</h1>
 		</div>
 	</md-toolbar>
 	<div layout="row" flex>
@@ -53,7 +53,7 @@
 				      <tbody>
 				        <tr ng-repeat="work in list|filter:search| orderBy:'-id'">
 				          <td class="hidden">{{work.id}}</td>
-				          <td data-title="Tipo de trabajo">{{work.tipo_trabajo}}</td>
+				          <td data-title="Tipo de trabajo">{{work.tipoTrabajo}}</td>
 				          <td data-title="Descripci&oacute;n">{{work.descripcion}}</td>
 				          <td class="right-align">
 				          	<a ng-click="deleteFunction($event, work)" href="">

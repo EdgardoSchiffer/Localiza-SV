@@ -31,9 +31,10 @@
 			    </div>
 			    <div class="menu-item">
 			      	<a class="md-accent md-button md-ink-ripple" href=""><i class="material-icons">gps_fixed</i>Dispositivos</a>
-			      	<ul class="expandible2">
+			      	<ul class="expandible3">
 			      		<li><a href="marcaDispositivo">Marcas</a></li>
 			      		<li><a href="modeloDispositivo">Modelos</a></li>
+			      		<li><a href="ubicacionesGps">Ubicaciones de GPS</a></li>
 			      	</ul>
 			    </div> 
 			    <div class="menu-item">

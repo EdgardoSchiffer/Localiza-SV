@@ -15,7 +15,7 @@
 			<md-button ng-click="vm.toggleSidenav('left')" hide-gt-sm class="md-icon-button"> 
 				<md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon> 
 			</md-button>
-			<h1>Administración de trabajos - Localiza</h1>
+			<h1>Instalaciones</h1>
 		</div>
 	</md-toolbar>
 	<div layout="row" flex>
@@ -63,10 +63,10 @@
 				          <td data-title="T&eacute;cnico">{{work.tecnico.nombre + ' ' + work.tecnico.apellidos}}</td>
 				          <td data-title="Monitoreo">{{work.monitoreo.nombre + ' ' + work.monitoreo.apellido}}</td>
 				          <td class="right-align">
-				          	<a ng-click="deleteFunction($event, marca)" href="">
+				          	<a ng-click="deleteFunction($event, work)" href="">
 				          		<i class="material-icons crudEliminar">delete_forever</i>
 				          	</a>
-				          	<a ng-click="updateFunction($event, marca)" href="">
+				          	<a ng-click="updateFunction($event, work)" href="">
 				          		<i class="material-icons crudModificar" >border_color</i>
 				          	</a>
 				          </td>

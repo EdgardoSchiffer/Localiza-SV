@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="marcaApp">
+<html ng-app="ubicacionApp">
 <head>
 <title>Administraci&oacute;n de trabajos</title>
 <meta charset="UTF-8" />
@@ -9,13 +9,13 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources//css/app/style.css"></link>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources//css/app/table.css"></link>
 </head>
-<body layout="column" ng-controller="marcaCtrl as vm">
+<body layout="column" ng-controller="ubicacionCtrl as vm">
 	<md-toolbar layout="row">
 		<div class="md-toolbar-tools">
 			<md-button ng-click="vm.toggleSidenav('left')" hide-gt-sm class="md-icon-button"> 
 				<md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon> 
 			</md-button>
-			<h1>Marcas GPS</h1>
+			<h1>Ubicaciones GPS</h1>
 		</div>
 	</md-toolbar>
 	<div layout="row" flex>
@@ -28,7 +28,7 @@
 				  <table id="table" class="table table-hover table-mc-light-blue" at-table at-paginated at-list="list" at-config="config" rules="none">
 				      <thead id="tblTitle">
 				        <tr>
-				          <th>Marcas</th>
+				          <th>Ubicaciones GPS</th>
 				          <th>
 				          	<form class="form-inline">
 						        <div class="form-group">
@@ -45,19 +45,19 @@
 				      </thead>
 				      <thead>
 				      	<tr>
-				      		<th colspan="2">Marca</th>
+				      		<th colspan="2">Ubicacion</th>
 				      		<th></th>
 				      	</tr>
 				      </thead>
 				      <tbody>
-				        <tr ng-repeat="marca in list|filter:search| orderBy:'-nombre'">
-				          <td hidden>{{marca.id}}</td>
-				          <td colspan="2" data-title="Marca">{{marca.marca}}</td>
+				        <tr ng-repeat="ubicacion in list|filter:search| orderBy:'-ubicacion'">
+				          <td hidden>{{ubicacion.id}}</td>
+				          <td colspan="2" data-title="Marca">{{ubicacion.ubicacion}}</td>
 				          <td class="right-align">
-				          	<a ng-click="deleteFunction($event, marca)" href="">
+				          	<a ng-click="deleteFunction($event, ubicacion)" href="">
 				          		<i class="material-icons crudEliminar">delete_forever</i>
 				          	</a>
-				          	<a ng-click="updateFunction($event, marca)" href="">
+				          	<a ng-click="updateFunction($event, ubicacion)" href="">
 				          		<i class="material-icons crudModificar" >border_color</i>
 				          	</a>
 				          </td>
@@ -82,5 +82,5 @@
 <script
 	src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/angularjs/marca.js"></script>
+	src="${pageContext.request.contextPath}/resources/js/angularjs/ubicacion.js"></script>
 </html>

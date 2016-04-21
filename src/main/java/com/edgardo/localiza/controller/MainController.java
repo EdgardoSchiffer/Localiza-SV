@@ -163,4 +163,9 @@ public class MainController {
 	public String tecnicos(){
 		return "/tecnicos";
 	}
+	
+	@RequestMapping(value="ubicacionesGps")
+	public String ubicacionesGps(){
+		return "/ubicacionesGps";
+	}
 }
