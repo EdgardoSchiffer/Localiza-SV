@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="trabajoAjustesApp">
+<html ng-app="instalacionesApp">
 <head>
 <title>Administraci&oacute;n de trabajos</title>
 <meta charset="UTF-8" />
@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources//css/app/style.css"></link>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources//css/app/table.css"></link>
 </head>
-<body layout="column" ng-controller="trabajoAjustesCtrl as vm">
+<body layout="column" ng-controller="instalacionesCtrl as vm">
 	<md-toolbar layout="row">
 		<div class="md-toolbar-tools">
 			<md-button ng-click="vm.toggleSidenav('left')" hide-gt-sm class="md-icon-button"> 
@@ -28,13 +28,18 @@
 				  <table id="table" class="table table-hover table-mc-light-blue" at-table at-paginated at-list="list" at-config="config" rules="none">
 				      <thead id="tblTitle">
 				        <tr>
-				          <th colspan="4">Revisiones</th>
-				          <th colspan="3">
+				          <th colspan="3">Revisiones</th>
+				          <th colspan="2">
 				          	<form class="form-inline">
 						        <div class="form-group">
-						            <input type="text" ng-model="search" class="form-control" placeholder="Buscar">
+						            <input class="searchInput" type="text" ng-model="search" class="form-control" placeholder="Buscar">
 						        </div>
 						    </form>
+				          </th>
+				          <th colspan="2">
+				          	<md-button id="insertBtn" class="md-primary md-raised" ng-click="newFunction($event)">
+						      Nuevo...
+						    </md-button>
 				          </th>
 				        </tr>
 				      </thead>
@@ -46,18 +51,25 @@
 				      		<th>Unidad</th>
 				      		<th>T&eacute;cnico</th>
 				      		<th>Monitoreo</th>
-				      		<th>Mas</th>
+				      		<th></th>
 				      	</tr>
 				      </thead>
 				      <tbody>
 				        <tr ng-repeat="work in list|filter:search">
-				          <td data-title="Boleta">{{work.trabajo}}</td>
-				          <td data-title="Fecha">{{work.descripcion}}</td>
-				          <td data-title="Cliente">{{work.descripcion}}</td>
-				          <td data-title="Unidad">{{work.descripcion}}</td>
-				          <td data-title="T&eacute;cnico">{{work.descripcion}}</td>
-				          <td data-title="Monitoreo">{{work.descripcion}}</td>
-				          <td data-title="Mas">{{work.descripcion}}</td>
+				          <td data-title="Boleta">{{work.boleta}}</td>
+				          <td data-title="Fecha">{{work.fecha | date:'longDate'}}</td>
+				          <td data-title="Cliente">{{work.cliente.tipoCliente.tipo_cliente + ', '+work.cliente.cliente}}</td>
+				          <td data-title="Unidad">{{work.unidad}}</td>
+				          <td data-title="T&eacute;cnico">{{work.tecnico.nombre + ' ' + work.tecnico.apellidos}}</td>
+				          <td data-title="Monitoreo">{{work.monitoreo.nombre + ' ' + work.monitoreo.apellido}}</td>
+				          <td class="right-align">
+				          	<a ng-click="deleteFunction($event, work)" href="">
+				          		<i class="material-icons crudEliminar">delete_forever</i>
+				          	</a>
+				          	<a ng-click="updateFunction($event, work)" href="">
+				          		<i class="material-icons crudModificar" >border_color</i>
+				          	</a>
+				          </td>
 				        </tr>
 				      </tbody>
 				    </table>
@@ -76,8 +88,12 @@
 	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
 <script
 	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+<script 
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.5.3/angular-locale_es-sv.js"></script>
 <script
 	src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+	<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/moment.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/angularjs/trabajoajustes.js"></script>
+	src="${pageContext.request.contextPath}/resources/js/angularjs/revisiones.js"></script>
 </html>

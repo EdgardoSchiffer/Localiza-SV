@@ -253,7 +253,7 @@ function DialogController($scope, $mdDialog, locals) {
 	  };
 	  $scope.answer = function(answer) {
 		  if (answer == "save") {
-			  if ($scope.newTipo.tipo_trabajo != "" && $scope.newTipo.tipo_trabajo != undefined) {
+			  if ($scope.newTipo.tipoTrabajo != "" && $scope.newTipo.tipoTrabajo != undefined) {
 			    	$mdDialog.hide(answer);
 				}else{
 					angular.copy(originalData, $scope.newTipo);

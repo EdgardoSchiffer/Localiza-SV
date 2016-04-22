@@ -226,7 +226,7 @@ app.controller('instalacionesCtrl',  function($mdSidenav, $scope, $mdDialog, $md
 		  		  })
 		  			$mdToast.show(
 		  			      $mdToast.simple()
-		  			        .textContent('Trabajo guardada con exito')
+		  			        .textContent('Trabajo guardado con exito')
 		  			        .position(pinTo )
 		  			        .hideDelay(3000)
 		  			    );

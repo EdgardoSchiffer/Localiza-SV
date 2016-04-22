@@ -50,7 +50,7 @@
 				      <tbody>
 				        <tr ng-repeat="tecnico in list|filter:search| orderBy:'-nombre'">
 				          <td colspan="2" data-title="Nombre">{{tecnico.nombre}}</td>
-				          <td colspan="2" data-title="Apellido">{{tecnico.apellido}}</td>
+				          <td colspan="2" data-title="Apellido">{{tecnico.apellidos}}</td>
 				        </tr>
 				      </tbody>
 				    </table>

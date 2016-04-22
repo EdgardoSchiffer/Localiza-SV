@@ -78,7 +78,7 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="newTipoTrabajo", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody TipoTrabajo newTipoTrabajo(@RequestParam(value="tipo_trabajo")String tipo,
+	public @ResponseBody TipoTrabajo newTipoTrabajo(@RequestParam(value="tipoTrabajo")String tipo,
 													@RequestParam(value="descripcion")String desc){
 		TipoTrabajo tipoEntity = new TipoTrabajo();
 		tipoEntity.setTipoTrabajo(tipo);
@@ -93,7 +93,7 @@ public class MainController {
 	
 	@RequestMapping(value="updateTipoTrabajo", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody TipoTrabajo updateTipoTrabajo(
-			@RequestParam(value="tipo_trabajo")String tipo,
+			@RequestParam(value="tipoTrabajo")String tipo,
 			@RequestParam(value="descripcion")String desc,
 			@RequestParam(value="id")int id){
 		TipoTrabajo entity = new TipoTrabajo();
