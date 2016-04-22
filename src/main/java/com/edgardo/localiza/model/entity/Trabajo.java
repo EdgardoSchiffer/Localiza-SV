@@ -35,11 +35,11 @@ public class Trabajo implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GenericGenerator(name="autoIncrement" , strategy="increment")
-	@GeneratedValue(generator="autoIncrement")
+	/*@GenericGenerator(name="autoIncrement" , strategy="increment")
+	@GeneratedValue(generator="autoIncrement")*/
 	@Column(name="boleta")
 	private int boleta;
-	private int imei;
+	private Integer imei;
 	@Column(length=10)
 	private String sim;
 	private Timestamp fecha;
@@ -74,17 +74,17 @@ public class Trabajo implements Serializable{
 	private UbicacionGps ubicacionGps;
 	public Trabajo() {
 	}
-	
 	public int getBoleta() {
 		return boleta;
 	}
 	public void setBoleta(int boleta) {
 		this.boleta = boleta;
 	}
-	public int getImei() {
+	
+	public Integer getImei() {
 		return imei;
 	}
-	public void setImei(int imei) {
+	public void setImei(Integer imei) {
 		this.imei = imei;
 	}
 	public String getSim() {
@@ -164,6 +164,8 @@ public class Trabajo implements Serializable{
 	}
 	public void setUbicacionGps(UbicacionGps ubicacionGps) {
 		this.ubicacionGps = ubicacionGps;
-	}	
+	}
+	
+	
 	
 }

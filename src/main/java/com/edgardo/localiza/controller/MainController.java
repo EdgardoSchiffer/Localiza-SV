@@ -42,13 +42,6 @@ public class MainController {
 		return trabajoService.findAll(id);
 	}
 	
-	@RequestMapping(value="getTrabajos", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Trabajo> getTrabajos(@RequestParam(value="tipo") String tipo){
-		List<Trabajo> trabajo = new ArrayList<Trabajo>();
-		trabajo = trabajoServiceImpl.findByType(tipo);
-		return trabajo;
-	}
-	
 	@RequestMapping(value="getUserInfo", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Monitoreo getMonitoreoUserInfo(@RequestParam(value="id")int id){
 		Monitoreo result = userInformationService.getUserInfo(id);

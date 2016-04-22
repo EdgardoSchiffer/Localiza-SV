@@ -5,6 +5,9 @@ var app = angular.module("instalacionesApp", ['ngMaterial'])
 			.accentPalette('indigo');
 	})
 	
+	
+var json = {};
+var id;
 /**
  * 
  * FUNCTION TO RETRIEVE DATABASE DATA
@@ -13,7 +16,6 @@ var app = angular.module("instalacionesApp", ['ngMaterial'])
 app.factory('getList', function($http, $httpParamSerializer){
 	return {
 		list: function(tipo){
-			console.log(tipo)
 			return $http({
 				type: "application/json",
 				method: 'POST',
@@ -29,7 +31,7 @@ app.factory('getList', function($http, $httpParamSerializer){
 });
 var json;
 var tipo;
-app.controller('instalacionesCtrl',  function($mdSidenav, $scope, $mdDialog, $mdMedia, $http, $httpParamSerializer, getList, $mdToast) {
+app.controller('instalacionesCtrl',  function($mdSidenav, $scope, $mdDialog, $mdMedia, $http, $httpParamSerializer, getList, $mdToast, $rootScope) {
 	  var vm = this;
 	  $scope.tipoCliente = {};
 	  vm.toggleSidenav = function(menuId) {
@@ -79,7 +81,6 @@ app.controller('instalacionesCtrl',  function($mdSidenav, $scope, $mdDialog, $md
 	  
 	  getList.list({"tipo": "Instalacion"}).then(function(response){
 		  $scope.list = response.data
-		  console.log($scope.list)
 	  })
 	  
 	  
@@ -98,20 +99,20 @@ app.controller('instalacionesCtrl',  function($mdSidenav, $scope, $mdDialog, $md
 	          .ok('Eliminar')
 	          .cancel('Cancelar');
 	  $mdDialog.show(confirm).then(function() {
-		  console.log(JSON.parse('{"id":"'+trabajo.id+'"}'));
+		  console.log(JSON.parse('{"boleta":"'+trabajo.boleta+'"}'));
 	      $http({
 	    	  method: "POST",
-	    	  url: "deleteCliente",
-	    	  data: $httpParamSerializer(JSON.parse('{"id":"'+trabajo.id+'"}')),
+	    	  url: "deleteTrabajo",
+	    	  data: $httpParamSerializer(JSON.parse('{"boleta":"'+trabajo.boleta+'"}')),
 	  			headers: {
 	  			    'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
 	  			  }
 	      })
 	      .success(function(data){
 	    	  $scope.list = {};
-	  			getList.list().then(function(response){
-	  			  $scope.list = response.data
-	  			})
+		  			getList.list({"tipo": "Instalacion"}).then(function(response){
+		  			  $scope.list = response.data
+		  		  })
 	  			if (data) {
 	  				$mdToast.show(
 	  				      $mdToast.simple()
@@ -138,30 +139,32 @@ app.controller('instalacionesCtrl',  function($mdSidenav, $scope, $mdDialog, $md
 	   */
 	  
 	  $scope.updateFunction = function(ev, trabajo){
+		  var original = angular.copy(trabajo);
 		  delete trabajo.$$hashKey;
 		  var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 		    $mdDialog.show({
 		      controller: DialogController,
 		      templateUrl: 'trabajosDialog',
-		      scope: $scope,
-		      preserveScope: true,
+		      //scope: $scope,
+		      //preserveScope: true,
 		      parent: angular.element(document.body),
 		      targetEvent: ev,
 		      clickOutsideToClose:true,
-		      fullscreen: useFullScreen,
+		      fullscreen:true,
 		      locals: {
 		    	  items: trabajo,
-		    	  title: "Actualizar cliente"
+		    	  title: "Actualizar trabajo"
 		      }
 		    })
 		    .then(function(answer) {
-			    console.log($scope.newTipo)
+		    	json.id = id;
+			    console.log(json)
 		      if (answer == "save") {
 		    	  $http({
 		  			type: "application/json",
 		  			method: 'POST',
 		  			url: 'updateTrabajo',
-		  			data: $httpParamSerializer($scope.newTipo),
+		  			data: $httpParamSerializer(json),
 		  			dataType: "JSON",
 		  			headers: {
 		  			    'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
@@ -169,12 +172,12 @@ app.controller('instalacionesCtrl',  function($mdSidenav, $scope, $mdDialog, $md
 		  		})
 		  		.success(function(data){
 		  			$scope.list = undefined;
-		  			getList.list().then(function(response){
+		  			getList.list({"tipo": "Instalacion"}).then(function(response){
 		  			  $scope.list = response.data
-		  			})
+		  		  })
 		  			$mdToast.show(
 		  			      $mdToast.simple()
-		  			        .textContent('Cliente modificado con exito')
+		  			        .textContent('Trabajo modificado con exito')
 		  			        .position(pinTo )
 		  			        .hideDelay(3000)
 		  			    );
@@ -199,19 +202,18 @@ app.controller('instalacionesCtrl',  function($mdSidenav, $scope, $mdDialog, $md
 		      parent: angular.element(document.body),
 		      targetEvent: ev,
 		      clickOutsideToClose:true,
-		      fullscreen: useFullScreen,
+		      fullscreen:true,
 		      locals: {
 		    	  items: {}
 		      }
 		    })
 		    .then(function(answer) {
-			    console.log($scope.newTipo)
 		      if (answer == "save") {
 		    	  $http({
 		  			type: "application/json",
 		  			method: 'POST',
 		  			url: 'newTrabajo',
-		  			data: $httpParamSerializer($scope.newTipo),
+		  			data: $httpParamSerializer(json),
 		  			dataType: "JSON",
 		  			headers: {
 		  			    'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
@@ -219,12 +221,12 @@ app.controller('instalacionesCtrl',  function($mdSidenav, $scope, $mdDialog, $md
 		  		})
 		  		.success(function(data){
 		  			$scope.list = undefined;
-		  			getList.list().then(function(response){
+		  			getList.list({"tipo": "Instalacion"}).then(function(response){
 		  			  $scope.list = response.data
-		  			})
+		  		  })
 		  			$mdToast.show(
 		  			      $mdToast.simple()
-		  			        .textContent('Categoria guardada con exito')
+		  			        .textContent('Trabajo guardada con exito')
 		  			        .position(pinTo )
 		  			        .hideDelay(3000)
 		  			    );
@@ -240,21 +242,105 @@ app.controller('instalacionesCtrl',  function($mdSidenav, $scope, $mdDialog, $md
  * 
  */
 
-function DialogController($scope, $mdDialog, locals, $http) {
+function DialogController($scope, $mdDialog, locals, $http, $rootScope) {
+	var originalData = angular.copy(locals.items);
+	$scope.work = 'Instalacion'
+	$scope.title = locals.title;
+	$scope.newTipo = locals.items;
+	$scope.newTipo.fecha = new Date($scope.newTipo.fecha);
+	if (isNaN(Date.parse($scope.newTipo.fecha))) {
+		$scope.newTipo.fecha = new Date();
+	}
+	
 	$http({
 		type: "application/json",
 		method: 'POST',
-		url: 'getTipoCliente',
+		url: 'getMarca',
 		headers: {
 			  'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
 		}
   })
   .success(function(data){
-	  $scope.tipoCliente = data;
+	  $scope.marcas = data;
   })
-	var originalData = angular.copy(locals.items);
-	$scope.title = locals.title;
-	$scope.newTipo = locals.items;
+  $http({
+		type: "application/json",
+		method: 'POST',
+		url: 'getModelo',
+		headers: {
+			  'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
+		}
+  })
+  .success(function(data){
+	  $scope.modelos = data;
+  })
+  $http({
+		type: "application/json",
+		method: 'POST',
+		url: 'getTipoTrabajo',
+		headers: {
+			  'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
+		}
+  })
+  .success(function(data){
+	  $scope.tipoTrabajo = data;
+  })
+  $http({
+		type: "application/json",
+		method: 'POST',
+		url: 'getTecnicos',
+		headers: {
+			  'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
+		}
+  })
+  .success(function(data){
+	  $scope.tecnicos = data;
+  })
+  $http({
+		type: "application/json",
+		method: 'POST',
+		url: 'getEjecutivas',
+		headers: {
+			  'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
+		}
+  })
+  .success(function(data){
+	  $scope.ejecutivas = data;
+  })
+  $http({
+		type: "application/json",
+		method: 'POST',
+		url: 'getMonitoreo',
+		headers: {
+			  'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
+		}
+  })
+  .success(function(data){
+	  $scope.operadores = data;
+  })
+  $http({
+		type: "application/json",
+		method: 'POST',
+		url: 'getClientes',
+		headers: {
+			  'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
+		}
+  })
+  .success(function(data){
+	  $scope.clientes = data;
+  })
+  $http({
+		type: "application/json",
+		method: 'POST',
+		url: 'getUbicacion',
+		headers: {
+			  'Content-Type': 'application/x-www-form-urlencoded' // Note the appropriate header
+		}
+  })
+  .success(function(data){
+	  $scope.ubicaciones = data;
+  })
+  id = $scope.newTipo.boleta;
 	  $scope.hide = function() {
 	    $mdDialog.hide();
 	  };
@@ -263,16 +349,73 @@ function DialogController($scope, $mdDialog, locals, $http) {
 	  };
 	  $scope.answer = function(answer) {
 		  if (answer == "save") {
-			  if ($scope.newTipo.cliente != "" && $scope.newTipo.cliente != undefined) {
-			    	$mdDialog.hide(answer);	
-				}else{
-					angular.copy(originalData, $scope.newTipo);
-					alert("Llene el cliente")
-				}
-		  }else{
-			  angular.copy(originalData, $scope.newTipo);
-			  $mdDialog.hide(answer);
+			  if(!notEmpty($scope.newTipo.boleta, "boleta")){
+				  return false;
+			  }
+			  if(!notEmpty($scope.newTipo.tipoTrabajo, "tipo trabajo")){
+				  return false;
+			  }
+			  if(!notEmpty($scope.newTipo.fecha, "fecha")){
+				  return false;
+			  }
+			  if(!notEmpty($scope.newTipo.tecnico, "tecnico")){
+				  return false;
+			  }
+			  if(!notEmpty($scope.newTipo.ejecutiva, "ejecutiva")){
+				  return false;
+			  }
+			  if(!notEmpty($scope.newTipo.monitoreo, "monitoreo")){
+				  return false;
+			  }
+			  if(!notEmpty($scope.newTipo.cliente, "cliente")){
+				  return false;
+			  }
+			  if(!notEmpty($scope.newTipo.marca, "marca")){
+				  return false;
+			  }
+			  if(!notEmpty($scope.newTipo.modelo, "modelo")){
+				  return false;
+			  }
+			  if(!notEmpty($scope.newTipo.ubicacionGps, "ubicacion")){
+				  return false;
+			  }
+			  if(!notEmpty($scope.newTipo.imei, "imei")){
+				  return false;
+			  }
+			  if(!notEmpty($scope.newTipo.sim, "sim")){
+				  return false;
+			  }
+			  if(!$scope.newTipo.comentario){
+				  $scope.newTipo.comentario = " ";
+			  }
+			  json = 
+		    	{ 
+		    			"boleta":	$scope.newTipo.boleta,
+		    			"tipo": $scope.newTipo.tipoTrabajo,
+		    			"fecha": moment($scope.newTipo.fecha).format("YYYY-MM-DD h:mm:ss"),
+		    			"tecnico":	$scope.newTipo.tecnico,
+		    			"ejecutiva": $scope.newTipo.ejecutiva,
+		    			"monitoreo":	$scope.newTipo.monitoreo,
+		    			"cliente":  $scope.newTipo.cliente,
+		    			"marca": $scope.newTipo.marca,
+		    			"modelo": $scope.newTipo.modelo,
+		    			"ubicacion": $scope.newTipo.ubicacionGps,
+		    			"unidad":	$scope.newTipo.unidad,
+		    			"imei":	$scope.newTipo.imei,
+		    			"sim": $scope.newTipo.sim,
+		    			"comentario": $scope.newTipo.comentario,
+		    			"estado": $scope.newTipo.estado    			
+		    	}
 		  }
+		  angular.copy(originalData, $scope.newTipo);
+		  $mdDialog.hide(answer);
 	  };
 	}
 
+function notEmpty(field, fieldName){
+	if (field == "" || field == undefined) {
+    	alert("Verifique el campo " + fieldName)
+    	return false;
+	}
+	return true;
+}

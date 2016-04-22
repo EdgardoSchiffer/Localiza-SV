@@ -57,7 +57,7 @@
 				      <tbody>
 				        <tr ng-repeat="work in list|filter:search">
 				          <td data-title="Boleta">{{work.boleta}}</td>
-				          <td data-title="Fecha">{{work.fecha | date:'medium'}}</td>
+				          <td data-title="Fecha">{{work.fecha | date:'longDate'}}</td>
 				          <td data-title="Cliente">{{work.cliente.tipoCliente.tipo_cliente + ', '+work.cliente.cliente}}</td>
 				          <td data-title="Unidad">{{work.unidad}}</td>
 				          <td data-title="T&eacute;cnico">{{work.tecnico.nombre + ' ' + work.tecnico.apellidos}}</td>
@@ -92,6 +92,8 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.5.3/angular-locale_es-sv.js"></script>
 <script
 	src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+	<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/moment.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/angularjs/instalaciones.js"></script>
 </html>

@@ -197,3 +197,9 @@ md-dialog{
 	font-size: 28px;
 	font-weight: bold;
 }
+
+#warning{
+	font-size: 10px;
+	color: #D04141;
+	text-align: left;
+}
