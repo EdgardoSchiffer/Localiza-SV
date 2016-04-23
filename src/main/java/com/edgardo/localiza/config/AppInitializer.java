@@ -1,5 +1,9 @@
 package com.edgardo.localiza.config;
 
+import java.util.EnumSet;
+
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
@@ -21,7 +25,14 @@ public class AppInitializer implements WebApplicationInitializer {
 		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
 		rootContext.register(AppContext.class);
 		rootContext.setDisplayName("App Java Config");
-
+		
+		//Filter force encodig all aplication map 
+        FilterRegistration.Dynamic characterEncodingFilter = servletContext.addFilter("characterEncodingFilter", 
+        new CharacterEncodingFilter()); 
+        characterEncodingFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*"); 
+        characterEncodingFilter.setInitParameter("encoding", "UTF-8"); 
+        characterEncodingFilter.setInitParameter("forceEncoding", "true");
+		
 		// Context loader listener
 		servletContext.addListener(new ContextLoaderListener(rootContext));
 

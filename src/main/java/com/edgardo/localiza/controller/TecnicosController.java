@@ -48,4 +48,9 @@ public class TecnicosController {
 		entity.setNombre(nombre);;
 		return Tecnicos.update(entity, id);
 	}
+	
+	@RequestMapping(value="getTecnicoSpec", produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<Tecnicos> getTecnicosSpec(){
+		return Tecnicos.findAll();
+	}
 }

@@ -10,6 +10,8 @@ import com.edgardo.localiza.model.entity.Ejecutivas;
 import com.edgardo.localiza.model.entity.MarcaDispositivo;
 import com.edgardo.localiza.model.entity.ModeloDispositivo;
 import com.edgardo.localiza.model.entity.Monitoreo;
+import com.edgardo.localiza.model.entity.QCliente;
+import com.edgardo.localiza.model.entity.QTrabajo;
 import com.edgardo.localiza.model.entity.Tecnicos;
 import com.edgardo.localiza.model.entity.TipoTrabajo;
 import com.edgardo.localiza.model.entity.Trabajo;
@@ -46,7 +48,8 @@ public class TrabajoServiceImpl implements TrabajoService{
 	}
 	
 	public List<Trabajo> findByType(String tipo){
-		return repository.findByTipoTrabajoTipoTrabajo(tipo);
+		return (List<Trabajo>) repository.findAll(QTrabajo.trabajo.tipoTrabajo.tipoTrabajo.eq(tipo));
+		//return repository.findByTipoTrabajoTipoTrabajo(tipo);
 		
 	}
 

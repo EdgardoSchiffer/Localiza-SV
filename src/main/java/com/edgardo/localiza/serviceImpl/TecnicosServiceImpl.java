@@ -3,10 +3,12 @@ package com.edgardo.localiza.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.edgardo.localiza.model.entity.Tecnicos;
 import com.edgardo.localiza.model.repository.TecnicosRepository;
+import com.edgardo.localiza.model.specificartion.TecnicoSpecification;
 import com.edgardo.localiza.service.TecnicosService;
 
 @Service
@@ -29,7 +31,9 @@ public class TecnicosServiceImpl implements TecnicosService{
 	@Override
 	public List<Tecnicos> findAll() {
 		// TODO Auto-generated method stub
-		return repository.findAll();
+		//return repository.findAll();
+		Specification<Tecnicos> tec = TecnicoSpecification.findTecnicoBySpecification("Sebastian");
+		return repository.findAll(tec);
 	}
 
 	@Override
