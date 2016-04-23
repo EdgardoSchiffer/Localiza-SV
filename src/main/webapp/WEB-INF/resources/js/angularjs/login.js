@@ -1,4 +1,4 @@
-var login = angular.module('loginApp', ['ngMaterial'])
+var login = angular.module('loginApp', ['ngMaterial', 'ngCookies'])
 .config(function($mdThemingProvider) {
 	$mdThemingProvider.theme('default')
 		.primaryPalette('teal')
@@ -6,7 +6,7 @@ var login = angular.module('loginApp', ['ngMaterial'])
 });
 
 
-login.controller("loginCtrl", function($scope, $http, $httpParamSerializer, $window){
+login.controller("loginCtrl", function($scope, $http, $httpParamSerializer, $window, $cookies){
 	$scope.login = {};
 	$scope.flash = flash;
 	$scope.validateLogin = function(){
@@ -40,11 +40,12 @@ login.controller("loginCtrl", function($scope, $http, $httpParamSerializer, $win
 				.success(function(role){
 					console.log(role);
 					if (role == "admin") {
-						console.log(sessionStorage.setItem("id_user", data.id));
-						console.log(sessionStorage.setItem("rol", role.rol))
+						console.log($cookies.put('id_user', data.id));
+						console.log($cookies.put('rol', role.rol));
+						$window.location.href = "admin/";
 					}else if(role != "false"){
-						console.log(sessionStorage.setItem("id_user", data.id));
-						console.log(sessionStorage.setItem("rol", role.rol))
+						console.log($cookies.put('id_user', data.id));
+						console.log($cookies.put('rol', role.rol));
 						$window.location.href = "app/index";
 					}
 				})	
@@ -57,6 +58,8 @@ function clean(){
 	document.getElementById("flash").innerHTML = "";
 }
 
-login.run(function(){
-	//alert("Angular test")
+login.run(function($window, $cookies){
+	if ($cookies.get('rol')!=undefined && $cookies.get('id_user')!=undefined) {
+		$window.location.href = "app/index";
+	}
 });

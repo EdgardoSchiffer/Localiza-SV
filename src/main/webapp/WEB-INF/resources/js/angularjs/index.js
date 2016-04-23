@@ -1,9 +1,15 @@
-var app = angular.module("localizaApp", ['ngMaterial'])
+var app = angular.module("localizaApp", ['ngMaterial', 'ngCookies'])
 .config(function($mdThemingProvider) {
 	$mdThemingProvider.theme('default')
 		.primaryPalette('teal')
 		.accentPalette('indigo');
 });
+
+app.run(function($window, $cookies){
+	if ($cookies.get('rol')==undefined && $cookies.get('id_user')==undefined) {
+		$window.location.href = "../";
+	}
+})
 
 app.factory('getList', function($http, $httpParamSerializer){
 	return {
@@ -22,7 +28,7 @@ app.factory('getList', function($http, $httpParamSerializer){
 	}
 });
 var json;
-app.controller('AppController', function($mdSidenav, $scope, $mdDialog, $mdMedia, $http, $httpParamSerializer, getList, $mdToast) {
+app.controller('AppController', function($mdSidenav, $scope, $mdDialog, $mdMedia, $http, $httpParamSerializer, getList, $mdToast, $cookies) {
 	  var vm = this;
 
 	  vm.toggleSidenav = function(menuId) {
@@ -67,12 +73,12 @@ app.controller('AppController', function($mdSidenav, $scope, $mdDialog, $mdMedia
 	   * 
 	   * GETTING INFO FROM BD
 	   * 
-	   */	  
-	  getList.list({"id": ""+sessionStorage.getItem('id_user')+""}).then(function(response){
+	   */
+	  getList.list({"id": ""+$cookies.get("id_user")+""}).then(function(response){
 		  $scope.list = response.data
 		  $scope.list.id = $scope.list.user.id
 		  $scope.list.user = $scope.list.user.user;
-		  $scope.list.rol = sessionStorage.getItem('rol');
+		  $scope.list.rol = $cookies.get("rol")
 	  })
 	  
 	  /**
@@ -112,11 +118,11 @@ app.controller('AppController', function($mdSidenav, $scope, $mdDialog, $mdMedia
 		  			  }
 		  		})
 		  		.success(function(data){
-		  			getList.list({"id": ""+sessionStorage.getItem('id_user')+""}).then(function(response){
+		  			getList.list({"id": ""+$cookies.get("id_user")+""}).then(function(response){
 		  			  $scope.list = response.data
 		  			  $scope.list.id = $scope.list.user.id
 		  			  $scope.list.user = $scope.list.user.user;
-		  			  $scope.list.rol = sessionStorage.getItem('rol');
+		  			  $scope.list.rol = $cookies.get("rol")
 		  		  })
 		  			$mdToast.show(
 		  			      $mdToast.simple()

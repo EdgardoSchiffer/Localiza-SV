@@ -1,6 +1,5 @@
 package com.edgardo.localiza.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import com.edgardo.localiza.model.entity.TipoTrabajo;
 import com.edgardo.localiza.model.entity.Trabajo;
 import com.edgardo.localiza.model.repository.TrabajoDetailService;
 import com.edgardo.localiza.serviceImpl.TipoTrabajoServiceImpl;
-import com.edgardo.localiza.serviceImpl.TrabajoServiceImpl;
 import com.edgardo.localiza.serviceImpl.UserInformationService;
 
 @Controller
@@ -26,8 +24,6 @@ public class MainController {
 	private TipoTrabajoServiceImpl tipoTrabajo;
 	@Autowired
 	private TrabajoDetailService trabajoService;
-	@Autowired
-	private TrabajoServiceImpl trabajoServiceImpl;
 	
 	@Autowired
 	private UserInformationService userInformationService;

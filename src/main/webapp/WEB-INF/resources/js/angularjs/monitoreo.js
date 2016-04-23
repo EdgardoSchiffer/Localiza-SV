@@ -1,9 +1,16 @@
-var app = angular.module("monitoreoApp", ['ngMaterial'])
+var app = angular.module("monitoreoApp", ['ngMaterial', 'ngCookies'])
 	.config(function($mdThemingProvider) {
 		$mdThemingProvider.theme('default')
 			.primaryPalette('teal')
 			.accentPalette('indigo');
 	})
+	
+app.run(function($window, $cookies){
+	if ($cookies.get('rol')==undefined && $cookies.get('id_user')==undefined) {
+		$window.location.href = "../";
+	}
+})
+
 	
 /**
  * 

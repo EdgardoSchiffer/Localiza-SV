@@ -21,6 +21,16 @@ public class LoginController {
 		return "login";
 	}
 	
+	@RequestMapping(value="login", method=RequestMethod.GET)
+	public String login(){
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value="logout")
+	public String logout(){
+		return "logout";
+	}
+	
 	@RequestMapping(value="loginRequestValidate", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Integer loginRequestValidate(Model model,
 													@RequestParam(value="user") String user,
