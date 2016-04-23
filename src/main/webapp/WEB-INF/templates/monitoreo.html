@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html ng-app="instalacionesApp">
+<html ng-app="monitoreoApp"
+xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Administraci&oacute;n de trabajos</title>
+<title>Localiza El Salvador</title>
 <meta charset="UTF-8" />
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css"></link>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources//css/app/style.css"></link>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources//css/app/table.css"></link>
+	<link rel="stylesheet" th:href="@{/resources/css/app/style.css}"></link>
+	<link rel="stylesheet" th:href="@{/resources/css/app/table.css}"></link>
 </head>
-<body layout="column" ng-controller="instalacionesCtrl as vm">
+<body layout="column" ng-controller="monitoreoCtrl as vm">
 	<md-toolbar layout="row">
 		<div class="md-toolbar-tools">
 			<md-button ng-click="vm.toggleSidenav('left')" hide-gt-sm class="md-icon-button"> 
 				<md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon> 
 			</md-button>
-			<h1>Desmontajes</h1>
+			<h1>Monitoreo</h1>
 		</div>
 	</md-toolbar>
 	<div layout="row" flex>
@@ -28,48 +30,29 @@
 				  <table id="table" class="table table-hover table-mc-light-blue" at-table at-paginated at-list="list" at-config="config" rules="none">
 				      <thead id="tblTitle">
 				        <tr>
-				          <th colspan="3">Desmontajes</th>
-				          <th colspan="2">
+				          <th colspan="2">Monitoreo</th>
+				          <th>
 				          	<form class="form-inline">
 						        <div class="form-group">
 						            <input class="searchInput" type="text" ng-model="search" class="form-control" placeholder="Buscar">
 						        </div>
 						    </form>
 				          </th>
-				          <th colspan="2">
-				          	<md-button id="insertBtn" class="md-primary md-raised" ng-click="newFunction($event)">
-						      Nuevo...
-						    </md-button>
+				          <th>
+				          	
 				          </th>
 				        </tr>
 				      </thead>
 				      <thead>
 				      	<tr>
-				      		<th>Boleta</th>
-				      		<th>Fecha</th>
-				      		<th>Cliente</th>
-				      		<th>Unidad</th>
-				      		<th>T&eacute;cnico</th>
-				      		<th>Monitoreo</th>
-				      		<th></th>
+				      		<th colspan="2">Nombre</th>
+				      		<th colspan="2">Apellido</th>
 				      	</tr>
 				      </thead>
 				      <tbody>
-				        <tr ng-repeat="work in list|filter:search">
-				          <td data-title="Boleta">{{work.boleta}}</td>
-				          <td data-title="Fecha">{{work.fecha | date:'longDate'}}</td>
-				          <td data-title="Cliente">{{work.cliente.tipoCliente.tipo_cliente + ', '+work.cliente.cliente}}</td>
-				          <td data-title="Unidad">{{work.unidad}}</td>
-				          <td data-title="T&eacute;cnico">{{work.tecnico.nombre + ' ' + work.tecnico.apellidos}}</td>
-				          <td data-title="Monitoreo">{{work.monitoreo.nombre + ' ' + work.monitoreo.apellido}}</td>
-				          <td class="right-align">
-				          	<a ng-click="deleteFunction($event, work)" href="">
-				          		<i class="material-icons crudEliminar">delete_forever</i>
-				          	</a>
-				          	<a ng-click="updateFunction($event, work)" href="">
-				          		<i class="material-icons crudModificar" >border_color</i>
-				          	</a>
-				          </td>
+				        <tr ng-repeat="monitoreo in list|filter:search| orderBy:'-nombre'">
+				          <td colspan="2" data-title="Nombre">{{monitoreo.nombre}}</td>
+				          <td colspan="2" data-title="Apellido">{{monitoreo.apellido}}</td>
 				        </tr>
 				      </tbody>
 				    </table>
@@ -88,12 +71,8 @@
 	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
 <script
 	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
-<script 
-	src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.5.3/angular-locale_es-sv.js"></script>
 <script
 	src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
-	<script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/moment.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/angularjs/desmontajes.js"></script>
+	th:src="@{/resources/js/angularjs/monitoreo.js}"></script>
 </html>

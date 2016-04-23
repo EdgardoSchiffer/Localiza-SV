@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html ng-app="ubicacionApp">
+<html ng-app="modeloApp"
+xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Administraci&oacute;n de trabajos</title>
+<title>Localiza El Salvador</title>
 <meta charset="UTF-8" />
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css"></link>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources//css/app/style.css"></link>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources//css/app/table.css"></link>
+	<link rel="stylesheet" th:href="@{/resources/css/app/style.css}"></link>
+	<link rel="stylesheet" th:href="@{/resources/css/app/table.css}"></link>
 </head>
-<body layout="column" ng-controller="ubicacionCtrl as vm">
+<body layout="column" ng-controller="modeloCtrl as vm">
 	<md-toolbar layout="row">
 		<div class="md-toolbar-tools">
 			<md-button ng-click="vm.toggleSidenav('left')" hide-gt-sm class="md-icon-button"> 
 				<md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon> 
 			</md-button>
-			<h1>Ubicaciones GPS</h1>
+			<h1>Modelos GPS</h1>
 		</div>
 	</md-toolbar>
 	<div layout="row" flex>
@@ -28,7 +30,7 @@
 				  <table id="table" class="table table-hover table-mc-light-blue" at-table at-paginated at-list="list" at-config="config" rules="none">
 				      <thead id="tblTitle">
 				        <tr>
-				          <th>Ubicaciones GPS</th>
+				          <th>Modelos GPS</th>
 				          <th>
 				          	<form class="form-inline">
 						        <div class="form-group">
@@ -45,19 +47,22 @@
 				      </thead>
 				      <thead>
 				      	<tr>
-				      		<th colspan="2">Ubicacion</th>
+				      		<th>Modelo</th>
+				      		<th>Marca</th>
 				      		<th></th>
 				      	</tr>
 				      </thead>
 				      <tbody>
-				        <tr ng-repeat="ubicacion in list|filter:search| orderBy:'-ubicacion'">
-				          <td hidden>{{ubicacion.id}}</td>
-				          <td colspan="2" data-title="Marca">{{ubicacion.ubicacion}}</td>
+				        <tr ng-repeat="modelo in list|filter:search">
+				          <td class="hidden">{{modelo.id}}</td>
+				          <td class="hidden">{{modelo.marca.id}}</td>
+				          <td data-title="Modelo">{{modelo.modelo}}</td>
+				          <td data-title="Marca">{{modelo.marca.marca}}</td>
 				          <td class="right-align">
-				          	<a ng-click="deleteFunction($event, ubicacion)" href="">
+				          	<a ng-click="deleteFunction($event, modelo)" href="">
 				          		<i class="material-icons crudEliminar">delete_forever</i>
 				          	</a>
-				          	<a ng-click="updateFunction($event, ubicacion)" href="">
+				          	<a ng-click="updateFunction($event, modelo)" href="">
 				          		<i class="material-icons crudModificar" >border_color</i>
 				          	</a>
 				          </td>
@@ -82,5 +87,5 @@
 <script
 	src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/angularjs/ubicacion.js"></script>
+	th:src="@{/resources/js/angularjs/modelo.js}"></script>
 </html>

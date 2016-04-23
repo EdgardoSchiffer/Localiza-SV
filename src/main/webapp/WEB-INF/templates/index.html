@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html ng-app="tecnicosApp">
+<html ng-app="localizaApp"
+xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Administraci&oacute;n de trabajos</title>
+<title>Localiza El Salvador</title>
 <meta charset="UTF-8" />
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css"></link>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources//css/app/style.css"></link>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources//css/app/table.css"></link>
+	<link rel="stylesheet" th:href="@{/resources/css/app/style.css}"></link>
+	<link rel="stylesheet" th:href="@{/resources/css/app/table.css}"></link>
 </head>
-<body layout="column" ng-controller="tecnicosCtrl as vm">
+<body layout="column" ng-controller="AppController as vm">
 	<md-toolbar layout="row">
 		<div class="md-toolbar-tools">
 			<md-button ng-click="vm.toggleSidenav('left')" hide-gt-sm class="md-icon-button"> 
 				<md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon> 
 			</md-button>
-			<h1>T&eacute;cnicos</h1>
+			<h1>Mi cuenta</h1>
 		</div>
 	</md-toolbar>
 	<div layout="row" flex>
@@ -28,29 +30,29 @@
 				  <table id="table" class="table table-hover table-mc-light-blue" at-table at-paginated at-list="list" at-config="config" rules="none">
 				      <thead id="tblTitle">
 				        <tr>
-				          <th colspan="2">Tecnicos</th>
-				          <th>
-				          	<form class="form-inline">
-						        <div class="form-group">
-						            <input class="searchInput" type="text" ng-model="search" class="form-control" placeholder="Buscar">
-						        </div>
-						    </form>
-				          </th>
-				          <th>
-				          	
-				          </th>
+				          <th colspan="5">Mi informaci&oacute;n</th>
 				        </tr>
 				      </thead>
 				      <thead>
 				      	<tr>
-				      		<th colspan="2">Nombre</th>
-				      		<th colspan="2">Apellido</th>
+				      		<th>Nombre</th>
+				      		<th>Apellido</th>
+				      		<th>Usuario</th>
+				      		<th>Tipo de usuario</th>
+				      		<th></th>
 				      	</tr>
 				      </thead>
 				      <tbody>
-				        <tr ng-repeat="tecnico in list|filter:search| orderBy:'-nombre'">
-				          <td colspan="2" data-title="Nombre">{{tecnico.nombre}}</td>
-				          <td colspan="2" data-title="Apellido">{{tecnico.apellidos}}</td>
+				        <tr>
+				          <td data-title="Nombre">{{list.nombre}}</td>
+				          <td data-title="Apellido">{{list.apellido}}</td>
+				          <td data-title="Usuario">{{list.user}}</td>
+				          <td data-title="Tipo de usuario">{{list.rol}}</td>
+				          <td>
+				          	<a ng-click="updateFunction($event, list)" href="">
+				          		<i class="material-icons crudModificar" >border_color</i>
+				          	</a>
+				          </td>
 				        </tr>
 				      </tbody>
 				    </table>
@@ -72,5 +74,5 @@
 <script
 	src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/angularjs/tecnicos.js"></script>
+	th:src="@{/resources/js/angularjs/index.js}"></script>
 </html>

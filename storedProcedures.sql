@@ -105,22 +105,28 @@ DECLARE
 id int;
 table_key int;
 BEGIN
-	SELECT MAX(id_user)
-	INTO id
-	FROM localiza_user;
+	SELECT COALESCE(
+		(SELECT MAX(id_user)
+		FROM localiza_user)
+	, 0)
+	INTO id;
 	id := id+1;
 	INSERT INTO localiza_user VALUES (id, pass_word, user_name);
-	IF rol = 'ejecutiva' THEN
-		SELECT MAX(id_ejecutiva) 
-		INTO table_key
-		FROM localiza_ejecutivas;
+	IF rol = 'Ejecutiva' THEN
+		SELECT COALESCE(
+			(SELECT MAX(id_ejecutiva) 
+			FROM localiza_ejecutivas)
+		, 0)
+		INTO table_key;
 		table_key := table_key+1;
 		INSERT INTO localiza_ejecutivas VALUES (table_key, apellido_, nombre_, id);
 	END IF;
-	IF rol = 'monitoreo' THEN
-		SELECT MAX(id_monitoreo)
-		INTO table_key
-		FROM localiza_monitoreo;
+	IF rol = 'Monitoreo' THEN
+		SELECT COALESCE(
+			(SELECT MAX(id_monitoreo) 
+			FROM localiza_monitoreo)
+		, 0)
+		INTO table_key;
 		table_key := table_key+1;
 		INSERT INTO localiza_monitoreo VALUES (table_key, apellido_, nombre_, id);
 	END IF;
@@ -131,7 +137,6 @@ $BODY$
   COST 100;
 ALTER FUNCTION public.insertuser(character varying, character varying, character varying, character varying, character varying)
   OWNER TO postgres;
-
 
 
 
@@ -209,6 +214,12 @@ BEGIN
 		END IF;
 	ELSE
 		UPDATE localiza_user SET username = user_name WHERE id_user= id;
+		IF rol = 'Ejecutiva' THEN
+			UPDATE localiza_ejecutivas SET nombre = nombre_, apellido = apellido_ WHERE fk_usuario = id;
+		END IF;
+		IF rol ='Monitoreo' THEN
+			UPDATE localiza_monitoreo SET nombre = nombre_, apellido = apellido_ WHERE fk_usuario = id;
+		END IF;
 	END IF;
 	IF FOUND THEN
 		RETURN TRUE;
