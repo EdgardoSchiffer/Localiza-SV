@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html ng-app="localizaApp"
+xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css"></link>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
+	<link rel="stylesheet" th:href="@{/resources/css/app/style.css}"></link>
+	<link rel="stylesheet" th:href="@{/resources/css/app/table.css}"></link>
+</head>
+<body layout="column" ng-controller="AppController as vm">
+	<md-toolbar layout="row">
+		<div class="md-toolbar-tools">
+			<h1>Administraci&oacute;n de personal</h1>
+		</div>
+	</md-toolbar>
+	<div layout="column" flex id="content" layout-align="center center">
+			<md-content layout="column" flex class="md-padding">
+				<div class="table-responsive-vertical shadow-z-1">
+				  <table id="table" class="table table-hover table-mc-light-blue" at-table at-paginated at-list="list" at-config="config" rules="none">
+				      <thead id="tblTitle">
+				        <tr>
+				          <th colspan="5">Mi informaci&oacute;n</th>
+				        </tr>
+				      </thead>
+				      <thead>
+				      	<tr>
+				      		<th>Nombre</th>
+				      		<th>Apellido</th>
+				      		<th>Usuario</th>
+				      		<th>Tipo de usuario</th>
+				      		<th></th>
+				      	</tr>
+				      </thead>
+				      <tbody>
+				        <tr ng-repeat="users in list|filter:search| orderBy:'-id'">
+				          <td class="hidden">{{users.id}}</td>
+				          <td class="hidden">{{users.idUser}}</td>
+				          <td data-title="Nombre">{{users.nombre}}</td>
+				          <td data-title="Apellido">{{users.apellido}}</td>
+				          <td data-title="Usuario">{{users.usuario}}</td>
+				          <td data-title="Tipo de usuario">{{users.rol}}</td>
+				          <td>
+				          	<a ng-click="updateFunction($event, list)" href="">
+				          		<i class="material-icons crudModificar" >border_color</i>
+				          	</a>
+				          </td>
+				        </tr>
+				      </tbody>
+				    </table>
+				    <at-pagination at-list="list" at-config="config"></at-pagination>
+				  </div>
+			</md-content>
+		</div>
+</body>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-cookies.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+<script type="text/javascript" th:src="@{/resources/js/angularjs/admin.js}"></script>
+</html>

@@ -39,14 +39,14 @@ login.controller("loginCtrl", function($scope, $http, $httpParamSerializer, $win
 				})
 				.success(function(role){
 					console.log(role);
-					if (role == "admin") {
-						console.log($cookies.put('id_user', data.id));
-						console.log($cookies.put('rol', role.rol));
-						$window.location.href = "admin/";
-					}else if(role != "false"){
-						console.log($cookies.put('id_user', data.id));
-						console.log($cookies.put('rol', role.rol));
-						$window.location.href = "app/index";
+					console.log($cookies.put('id_user', data.id));
+					console.log($cookies.put('rol', role.rol));
+					if ($cookies.get('rol')!=undefined && $cookies.get('id_user')!=undefined) {
+						if ($cookies.get('rol')== "Admin") {
+							$window.location.href = "admin/admin";
+						}else{
+							$window.location.href = "app/index";
+						}
 					}
 				})	
 			}
@@ -60,6 +60,10 @@ function clean(){
 
 login.run(function($window, $cookies){
 	if ($cookies.get('rol')!=undefined && $cookies.get('id_user')!=undefined) {
-		$window.location.href = "app/index";
+		if ($cookies.get('rol')== "Admin") {
+			$window.location.href = "admin/admin";
+		}else{
+			$window.location.href = "app/index";
+		}
 	}
 });
