@@ -19,7 +19,7 @@ public class TecnicosServiceImpl implements TecnicosService{
 	@Override
 	public Tecnicos save(Tecnicos entity) {
 		// TODO Auto-generated method stub
-		return null;
+		return repository.save(entity);
 	}
 
 	@Override
@@ -32,13 +32,17 @@ public class TecnicosServiceImpl implements TecnicosService{
 	public List<Tecnicos> findAll() {
 		// TODO Auto-generated method stub
 		//return repository.findAll();
-		Specification<Tecnicos> tec = TecnicoSpecification.findTecnicoBySpecification("Sebastian");
-		return repository.findAll(tec);
+		//Specification<Tecnicos> tec = TecnicoSpecification.findTecnicoBySpecification("Sebastian");
+		//return repository.findAll(tec);
+		return repository.findAll();
 	}
 
 	@Override
 	public Tecnicos update(Tecnicos entity, Integer id) {
 		// TODO Auto-generated method stub
-		return null;
+		Tecnicos t = repository.findOne(id);
+		t.setNombre(entity.getNombre());
+		t.setApellidos(entity.getApellidos());
+		return repository.saveAndFlush(t);
 	};
 }

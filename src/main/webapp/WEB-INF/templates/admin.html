@@ -22,8 +22,21 @@ xmlns="http://www.w3.org/1999/xhtml"
 				  <table id="table" class="table table-hover table-mc-light-blue" at-table at-paginated at-list="list" at-config="config" rules="none">
 				      <thead id="tblTitle">
 				        <tr>
-				          <th colspan="5">Mi informaci&oacute;n</th>
-				        </tr>
+				          <th colspan="2">Personal</th>
+				        
+				        <th colspan="2">
+				          	<form class="form-inline">
+						        <div class="form-group">
+						            <input class="searchInput" type="text" ng-model="search" class="form-control" placeholder="Buscar">
+						        </div>
+						    </form>
+				          </th>
+				          <th>
+				          	<md-button id="insertBtn" class="md-primary md-raised" ng-click="newFunction($event)">
+						      Nuevo...
+						    </md-button>
+				          </th>
+				         </tr>
 				      </thead>
 				      <thead>
 				      	<tr>
@@ -35,7 +48,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 				      	</tr>
 				      </thead>
 				      <tbody>
-				        <tr ng-repeat="users in list|filter:search| orderBy:'-id'">
+				        <tr ng-repeat="users in list|filter:search| orderBy:'rol'">
 				          <td class="hidden">{{users.id}}</td>
 				          <td class="hidden">{{users.idUser}}</td>
 				          <td data-title="Nombre">{{users.nombre}}</td>
@@ -43,7 +56,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 				          <td data-title="Usuario">{{users.usuario}}</td>
 				          <td data-title="Tipo de usuario">{{users.rol}}</td>
 				          <td>
-				          	<a ng-click="updateFunction($event, list)" href="">
+				          	<a ng-click="updateFunction($event, users)" href="">
 				          		<i class="material-icons crudModificar" >border_color</i>
 				          	</a>
 				          </td>

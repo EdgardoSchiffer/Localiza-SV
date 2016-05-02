@@ -93,12 +93,7 @@ ALTER FUNCTION public.getuserinfo(integer)
 
 -- DROP FUNCTION public.insertuser(character varying, character varying, character varying, character varying, character varying);
 
-CREATE OR REPLACE FUNCTION public.insertuser(
-    user_name character varying,
-    pass_word character varying,
-    nombre_ character varying,
-    apellido_ character varying,
-    rol character varying)
+CREATE OR REPLACE FUNCTION insertuser(user_name character varying, pass_word character varying, nombre_ character varying, apellido_ character varying, rol character varying)
   RETURNS integer AS
 $BODY$
 DECLARE
@@ -135,7 +130,7 @@ END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
-ALTER FUNCTION public.insertuser(character varying, character varying, character varying, character varying, character varying)
+ALTER FUNCTION insertuser(character varying, character varying, character varying, character varying, character varying)
   OWNER TO postgres;
 
 
@@ -193,14 +188,7 @@ ALTER FUNCTION public.uniqueuser(character varying)
 
 
 
-CREATE OR REPLACE FUNCTION public.updateuser(
-    user_name character varying,
-    pass_word character varying,
-    nombre_ character varying,
-    apellido_ character varying,
-    rol character varying,
-    password_flag boolean,
-    id integer)
+CREATE OR REPLACE FUNCTION updateuser(user_name character varying, pass_word character varying, nombre_ character varying, apellido_ character varying, rol character varying, password_flag boolean, id integer)
   RETURNS boolean AS
 $BODY$
 BEGIN
@@ -220,6 +208,9 @@ BEGIN
 		IF rol ='Monitoreo' THEN
 			UPDATE localiza_monitoreo SET nombre = nombre_, apellido = apellido_ WHERE fk_usuario = id;
 		END IF;
+		IF rol = 'Tecnico' THEN
+			UPDATE localiza_tecnicos SET nombre = nombre_, apellido = apellido_ WHERE id_tecnico = id;
+		END IF;
 	END IF;
 	IF FOUND THEN
 		RETURN TRUE;
@@ -230,5 +221,5 @@ END
 $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
-ALTER FUNCTION public.updateuser(character varying, character varying, character varying, character varying, character varying, boolean, integer)
+ALTER FUNCTION updateuser(character varying, character varying, character varying, character varying, character varying, boolean, integer)
   OWNER TO postgres;

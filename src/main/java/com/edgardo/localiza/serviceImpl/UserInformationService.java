@@ -20,6 +20,7 @@ public class UserInformationService {
 private SimpleJdbcCall getUserInfo;
 private SimpleJdbcCall updateUser;
 private SimpleJdbcCall uniqueUser;
+private SimpleJdbcCall newUser;
 	
 	@Autowired
 	public void setDataSource(DataSource dataSource)
@@ -33,6 +34,8 @@ private SimpleJdbcCall uniqueUser;
 		.withFunctionName("updateuser");
 		this.uniqueUser = new SimpleJdbcCall(dataSource)
 		.withFunctionName("uniqueuser");
+		this.newUser = new SimpleJdbcCall(dataSource)
+		.withFunctionName("insertuser");
 	}	
 	
 	public int uniqueUser(String user){
@@ -56,6 +59,21 @@ private SimpleJdbcCall uniqueUser;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		}
+	}
+	
+	public int newUser(String user, String pass, String nombre, String apellido, String rol){
+		SqlParameterSource in = new MapSqlParameterSource().
+				addValue("user_name", user)
+				.addValue("pass_word", pass)
+				.addValue("nombre_", nombre)
+				.addValue("apellido_", apellido)
+				.addValue("rol", rol);
+		try {
+			newUser.execute(in);
+			return 1;
+		} catch (Exception e) {
+			return 0;
 		}
 	}
 	
